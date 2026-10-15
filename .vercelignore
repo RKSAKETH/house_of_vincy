@@ -1,0 +1,8 @@
+tools/
+test-output/
+dev/
+reference/
+node_modules/
+assets/originals/
+README.md
+package-lock.json

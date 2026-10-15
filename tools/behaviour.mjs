@@ -99,6 +99,8 @@ check('footer shows client phone + address', (await p.textContent('#site-footer'
 check('footer phone is a tel: link', (await p.getAttribute('.footer-contact', 'href')) === 'tel:+916385202221');
 check('no PLACEHOLDER text left in copy/footer/products', !(await p.textContent('#rich-text')).includes('PLACEHOLDER') && !(await p.textContent('#site-footer')).includes('PLACEHOLDER') && !(await p.textContent('.announce-track')).includes('PLACEHOLDER') && !(await p.textContent('#featured')).includes('PLACEHOLDER'));
 check('nav has client categories (Earrings first, More holds Beauty Products)', (await p.textContent('#nav-list')).includes('Earrings') && (await p.textContent('#nav-list')).includes('Beauty Products'));
+check('logo image shows in header and is loaded', (await p.$eval('.header__logo-img', n => n.complete && n.naturalWidth > 0 && n.getBoundingClientRect().height > 100)));
+check('header is still 154px tall with the logo', Math.round(await p.$eval('#site-header', n => n.getBoundingClientRect().height)) === 154);
 check('hero banner (desktop): image visible, call hotspot is tel:, shop hotspot present', (await p.isVisible('#hero-1 .slide-art--desktop .slide-img')) && (await p.getAttribute('#hero-1 .slide-art--desktop .hotspot >> nth=0', 'href')) === 'tel:+916385202221' && (await p.isVisible('#hero-1 .slide-art--desktop .hotspot >> nth=1')));
 check('hero banner (desktop): mobile variant hidden', !(await p.isVisible('#hero-1 .slide-art--mobile')));
 check('reviews banner (desktop): image visible, mobile variant hidden', (await p.isVisible('#reviews .slide-art--desktop .slide-img')) && !(await p.isVisible('#reviews .slide-art--mobile')));

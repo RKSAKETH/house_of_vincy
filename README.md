@@ -45,6 +45,7 @@ Put source images in `assets/` and export web copies as JPG (about 100 to 350 KB
 
 | Slot | File | Size |
 |---|---|---|
+| Logo | `logo.png` (transparent), `favicon.png` | about 339 × 400, 64 × 64 |
 | Hero banner | `hero-banner-desktop.jpg`, `hero-banner-mobile.jpg` | 1672 × 940, 820 × 1918 |
 | Trust banner | `trust-banner-desktop.jpg`, `trust-banner-mobile.jpg` | 1536 × 1024, 803 × 1958 |
 | Reviews banner | `reviews-banner-desktop.jpg`, `reviews-banner-mobile.jpg` | 1536 × 1024, 1024 × 1536 |
@@ -53,7 +54,7 @@ Put source images in `assets/` and export web copies as JPG (about 100 to 350 KB
 
 The banners contain their own text, call box and button. Transparent links are placed over the call box and button in `index.html` (the `hotspot` elements); if you replace a banner with a different layout, adjust those percentages.
 
-`node tools/optimise-banners.mjs <input.png> <output.jpg> [quality]` converts a PNG banner to JPG at its native size. `node tools/optimise-images.mjs` does the same for the square collection and product images.
+`node tools/optimise-banners.mjs <input.png> <output.jpg> [quality]` converts a PNG banner to JPG at its native size. `node tools/optimise-images.mjs` does the same for the square collection and product images. `node tools/optimise-logo.mjs "<logo.png>"` crops the padding, makes the white background transparent and creates the favicon.
 
 ## Tests
 
@@ -67,10 +68,19 @@ This runs about 75 browser checks (Playwright): sticky header, dropdowns, search
 
 ## Still to supply
 
-- Logo (currently a grey placeholder box in the header)
 - Product prices
 - Email address and legal name for the footer
 - Policy pages (Privacy, Refund, Shipping, Terms, Contact)
+
+## Deploy (Vercel)
+
+The site is fully static: no build step. `vercel.json` tells Vercel to skip install and build and serve the repository root, and `.vercelignore` keeps the dev tools out of the deployment.
+
+1. Go to vercel.com, choose **Add New, Project**, and import the `house_of_vincy` GitHub repository.
+2. Leave the settings as they are (Framework Preset: **Other**; Build Command and Output Directory are already set by `vercel.json`) and click **Deploy**.
+3. Every push to `main` then redeploys automatically. Add your own domain under **Settings, Domains**.
+
+Or from the terminal: `npx vercel` for a preview deployment and `npx vercel --prod` for production.
 
 ## Fonts
 

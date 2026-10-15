@@ -33,7 +33,6 @@ h1, h2, h3, p { margin: 0; }
 /* Placeholders: neutral grey, labelled with the slot name. */
 .ph { display: flex; align-items: center; justify-content: center; text-align: center; background: #e2e2e2; color: #6b6b6b; font: 400 11px/1.3 var(--font-body); letter-spacing: 0; overflow: hidden; }
 .ph::after { content: attr(data-label); padding: 4px; }
-.ph--logo { width: var(--header-logo-w); height: var(--header-logo-h); }
 .ph--thumb { width: 50px; height: 50px; flex: none; }
 
 /* ---------------------------------------------------------------- announcement bar */
@@ -59,7 +58,8 @@ h1, h2, h3, p { margin: 0; }
 .section-header { position: sticky; top: 0; z-index: var(--z-header); }
 .header-wrapper { position: relative; background: var(--color-white); border-bottom: var(--border-width) solid var(--color-ink-08); }
 .header { display: grid; align-items: center; height: var(--header-inner-h); }
-.header__logo { display: block; width: var(--header-logo-w); height: var(--header-logo-h); }
+.header__logo { display: block; height: var(--header-logo-h); }
+.header__logo-img { display: block; height: 100%; width: auto; }
 .header__icons { display: flex; justify-self: end; }
 .header__icon { position: relative; width: var(--header-icon-hit); height: var(--header-icon-hit); display: flex; align-items: center; justify-content: center; color: var(--color-ink); }
 .header__icon .icon { width: var(--icon-size); height: var(--icon-size); }
@@ -72,7 +72,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* desktop: logo | nav | icons */
 @media (min-width: 990px) {
-  .header { grid-template-columns: 99px 1fr auto; column-gap: 24px; }
+  .header { grid-template-columns: auto 1fr auto; column-gap: 24px; }
   .header__icon--menu { display: none; }
   .header__icons { margin-right: -4.8px; }
 }
@@ -81,12 +81,11 @@ h1, h2, h3, p { margin: 0; }
   .header { grid-template-columns: 1fr auto 1fr; padding-left: 24px; padding-right: 33.6px; }
   .header__nav { display: none; }
   .header__icon--menu { grid-column: 1; grid-row: 1; justify-self: start; }
-  .header__logo { grid-column: 2; grid-row: 1; transform: translateX(4.8px); }
+  .header__logo { grid-column: 2; grid-row: 1; }
   .header__icons { grid-column: 3; grid-row: 1; }
 }
 @media (max-width: 749px) {
   .header { padding-left: 21.6px; padding-right: 31.2px; }
-  .header__logo { transform: translateX(-9.4px); }
 }
 
 /* navigation */

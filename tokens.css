@@ -82,8 +82,7 @@
   /* ---- Header ------------------------------------------------------------ */
   --announce-height: 46.6px;          /* 1 line (desktop); wraps to 2-3 lines at narrower widths (62px tablet, 76.5px mobile) */
   --header-height: 154px;             /* all viewports (logo 135px + padding) */
-  --header-logo-w: 90px; --header-logo-h: 135px;
-  --header-grid-desktop: 99px 1019px 154px;   /* logo | nav | icons, left aligned */
+  --header-logo-h: 128px;             /* logo.jpg is cropped to its content; width follows (about 108px) */
   --nav-item-pad: 14.4px;
   --nav-item-pad-x: 32.4px;           /* measured as list-item padding 14.4px 32.4px 14.4px 14.4px */
   --header-icon-hit: 52.8px;          /* icon button box */
