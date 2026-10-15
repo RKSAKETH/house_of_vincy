@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>House of Vincy | Jewellery, Hair Accessories and Beauty Products</title>
+  <meta name="description" content="Everyday jewellery, hair accessories and beauty essentials at House of Vincy, Velachery, Chennai. Earrings, necklaces, bracelets, bangles, watches and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400&family=Playfair+Display:wght@400;700&display=swap">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- SECTION: announcement-bar -->
+  <div id="announcement-bar" class="utility-bar">
+    <div class="page-width utility-bar__grid">
+      <button type="button" class="announce-btn" data-announce="prev" aria-label="Previous announcement"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+      <div class="announce-viewport" role="region" aria-roledescription="Carousel" aria-label="Announcement bar" aria-live="polite">
+        <div class="announce-track">
+          <p class="announce-msg">Everyday jewellery, hair accessories and beauty essentials, all in one place at House of Vincy</p>
+          <p class="announce-msg">Need help choosing? Call us on 6385202221</p>
+        </div>
+      </div>
+      <button type="button" class="announce-btn" data-announce="next" aria-label="Next announcement"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+    </div>
+  </div>
+
+  <!-- SECTION: header -->
+  <div id="site-header" class="section-header">
+    <header class="header-wrapper">
+      <div class="header page-width">
+        <button type="button" class="header__icon header__icon--menu" id="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu-drawer">
+          <svg class="icon icon-hamburger" viewBox="0 0 18 16" fill="none"><path fill="currentColor" d="M1 .5a.5.5 0 1 0 0 1h15.71a.5.5 0 0 0 0-1zM.5 8a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1A.5.5 0 0 1 .5 8m0 7a.5.5 0 0 1 .5-.5h15.71a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 18 17" fill="none"><path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"/></svg>
+        </button>
+
+        <a class="header__logo" href="index.html" aria-label="House of Vincy home"><span class="ph ph--logo" data-label="PLACEHOLDER: logo"></span></a>
+
+        <nav class="header__nav" aria-label="Primary"><ul class="nav-list" id="nav-list"></ul></nav>
+
+        <div class="header__icons">
+          <button type="button" class="header__icon header__icon--search" id="search-toggle" aria-label="Search" aria-expanded="false" aria-controls="search-modal">
+            <svg class="icon icon-search" viewBox="0 0 18 19" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 1 1 2.85 3.5a5.784 5.784 0 0 1 8.18 8.18m.26 1.12a6.78 6.78 0 1 1 .72-.7l5.4 5.4a.5.5 0 1 1-.71.7z" clip-rule="evenodd"/></svg>
+          </button>
+          <button type="button" class="header__icon header__icon--cart" id="cart-toggle" aria-label="Cart" aria-controls="cart-drawer" aria-expanded="false">
+            <svg class="icon icon-cart" viewBox="0 0 40 40" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"/></svg>
+            <span class="cart-count" id="cart-count" hidden>0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- search modal (covers the header row) -->
+      <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" hidden>
+        <div class="search-modal__content">
+          <form class="search-form" id="search-form" role="search" action="pages/placeholder.html">
+            <input type="hidden" name="slug" value="search">
+            <div class="search-field">
+              <label class="search-field__label" for="search-input">Search</label>
+              <input class="search-field__input" id="search-input" type="search" name="q" autocomplete="off" placeholder=" " aria-controls="search-results">
+              <button type="reset" class="search-field__btn search-field__reset" id="search-reset" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><circle cx="6" cy="6" r="5.5" fill="none" stroke="currentColor"/><path d="M4 4l4 4M8 4L4 8" stroke="currentColor" fill="none"/></svg></button>
+              <button type="submit" class="search-field__btn search-field__submit" aria-label="Search"><svg class="icon icon-search" viewBox="0 0 18 19" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 1 1 2.85 3.5a5.784 5.784 0 0 1 8.18 8.18m.26 1.12a6.78 6.78 0 1 1 .72-.7l5.4 5.4a.5.5 0 1 1-.71.7z" clip-rule="evenodd"/></svg></button>
+            </div>
+            <div class="predictive" id="search-results" hidden></div>
+          </form>
+          <button type="button" class="header__icon search-close" id="search-close" aria-label="Close search"><svg class="icon icon-close" viewBox="0 0 18 17" fill="none"><path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"/></svg></button>
+        </div>
+      </div>
+
+      <!-- mobile / tablet menu drawer -->
+      <div class="menu-drawer" id="menu-drawer" hidden>
+        <ul class="menu-drawer__menu" id="drawer-list"></ul>
+      </div>
+    </header>
+  </div>
+
+  <main id="main">
+    <!-- SECTION: hero-1 -->
+    <section id="hero-1" class="slide-section" aria-label="Hero banner">
+      <div class="slide-art slide-art--desktop">
+        <img class="slide-img" src="assets/hero-banner-desktop.jpg" width="1672" height="940" alt="House of Vincy. Everyday Jewellery, Beauty and More. Earrings, necklaces, bracelets, hair accessories, beauty products. Need help choosing? Call us: 6385202221. Shop now." fetchpriority="high">
+        <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:4.9%;top:59%;width:24.4%;height:11.7%"></a>
+        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:31.9%;top:61.2%;width:18.2%;height:7.4%"></a>
+      </div>
+      <div class="slide-art slide-art--mobile">
+        <img class="slide-img" src="assets/hero-banner-mobile.jpg" width="820" height="1918" alt="House of Vincy. Everyday Jewellery, Beauty and More. Earrings, necklaces, bracelets, hair accessories, beauty products. Need help choosing? Call us: 6385202221. Shop now." fetchpriority="high">
+        <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:14.8%;top:24.6%;width:71.1%;height:5.9%"></a>
+        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:14.8%;top:31.6%;width:71.1%;height:4.7%"></a>
+      </div>
+    </section>
+    <!-- SECTION: trust -->
+    <section id="trust" class="slide-section" aria-label="Trust and service highlights">
+      <div class="slide-art slide-art--desktop">
+        <img class="slide-img" src="assets/trust-banner-desktop.jpg" width="1536" height="1024" alt="Everyday Jewellery, Beauty and More. Everything you love, in one place. Earrings, necklaces, bracelets and bangles, rings and anklets, hair accessories, beauty products. Need help choosing? Call us: 6385202221." loading="lazy">
+        <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:5%;top:80.4%;width:28.2%;height:11.2%"></a>
+        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:35.2%;top:82.5%;width:18.8%;height:7%"></a>
+      </div>
+      <div class="slide-art slide-art--mobile">
+        <img class="slide-img" src="assets/trust-banner-mobile.jpg" width="803" height="1958" alt="Everyday Jewellery, Beauty and More. Everything you love, in one place. Earrings, necklaces, bracelets and bangles, rings and anklets, hair accessories, beauty products. Need help choosing? Call us: 6385202221." loading="lazy">
+        <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:9%;top:85.2%;width:82%;height:6.7%"></a>
+        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:9%;top:92.8%;width:82%;height:4.5%"></a>
+      </div>
+    </section>
+    <!-- SECTION: reviews -->
+    <section id="reviews" class="slide-section" aria-label="Customer reviews">
+      <div class="slide-art slide-art--desktop">
+        <img class="slide-img" src="assets/reviews-banner-desktop.jpg" width="1536" height="1024" alt="What our customers say. Four customer messages praising the jewellery, the quality and the packaging. Verified reviews. Pan-India delivery." loading="lazy">
+      </div>
+      <div class="slide-art slide-art--mobile">
+        <img class="slide-img" src="assets/reviews-banner-mobile.jpg" width="1024" height="1536" alt="What our customers say. Four customer messages praising the jewellery, the quality and the packaging. Verified reviews. Pan-India delivery." loading="lazy">
+      </div>
+    </section>
+    <!-- SECTION: collections -->
+    <section id="collections" class="coll">
+      <div class="coll__head page-width"><h2 class="h2">Collections</h2></div>
+      <div class="slider-wrap">
+        <ul class="slider coll__list" id="coll-slider">
+          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=necklaces">
+            <div class="coll-card__media"><img src="assets/collection-necklaces.jpg" width="900" height="900" alt="Gold charm necklace on cream satin" loading="lazy"></div>
+            <div class="coll-card__label"><h3 class="coll-card__title">Necklaces</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
+          </a></li>
+          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=bracelets">
+            <div class="coll-card__media"><img src="assets/collection-bracelets.jpg" width="900" height="900" alt="Gold crystal-set bangle in an open cream jewellery box" loading="lazy"></div>
+            <div class="coll-card__label"><h3 class="coll-card__title">Bracelets</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
+          </a></li>
+          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=rings">
+            <div class="coll-card__media"><img src="assets/collection-rings.jpg" width="900" height="900" alt="Gold open-band ring with a sculpted knot detail" loading="lazy"></div>
+            <div class="coll-card__label"><h3 class="coll-card__title">Rings</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
+          </a></li>
+          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=statement-collection">
+            <div class="coll-card__media"><img src="assets/collection-statement-collection.jpg" width="900" height="900" alt="Woman wearing a large sculptural gold petal earring" loading="lazy"></div>
+            <div class="coll-card__label"><h3 class="coll-card__title">Statement Collection</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
+          </a></li>
+          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=earrings">
+            <div class="coll-card__media"><img src="assets/collection-earrings.jpg" width="900" height="900" alt="Gold huggie earrings on silk" loading="lazy"></div>
+            <div class="coll-card__label"><h3 class="coll-card__title">Earrings</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
+          </a></li>
+        </ul>
+        <div class="slider-buttons" data-slider="coll-slider">
+          <button type="button" class="slider-button" data-dir="-1" aria-label="Previous collection"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+          <div class="slider-counter" aria-live="polite"><span class="slider-counter__current">1</span><span aria-hidden="true">/</span><span class="slider-counter__total">5</span></div>
+          <button type="button" class="slider-button" data-dir="1" aria-label="Next collection"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+        </div>
+      </div>
+    </section>
+    <!-- SECTION: rich-text -->
+    <section id="rich-text" class="rich">
+      <div class="page-width">
+        <div class="rich__blocks">
+          <h2 class="h2-sm">Welcome to House of Vincy</h2>
+          <div class="rich__text">
+            <p>House of Vincy brings you <strong>everyday jewellery, hair accessories and beauty essentials</strong> in one place. From oxidised and anti tarnish earrings to temple, Hasli and American diamond necklaces, our collection is easy to browse, easy to wear and easy to love.</p>
+            <p>Explore <strong>earrings, rings, chains, anklets, necklaces, bracelets, watches and bangles</strong>, plus hair clips, stone clips and hair bands to match every mood.</p>
+            <p>Complete your look with our <strong>beauty range</strong>: nail polish, nail art, eyeliner, mascara, lipstick, sunscreen and more. Take your time, explore each category and find the pieces that feel like you. Questions about a product? Call us on <strong>6385202221</strong> or find us at 251 Velachery Main Road, Thanthai Periyar Nagar, Velachery, Chennai 600042, and we will be happy to help.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- SECTION: marquee -->
+    <section id="marquee" class="marquee" aria-label="Highlights (placeholder words)">
+      <div class="marquee-container"><div class="marquee-content"><div class="marquee-wrapper"><p class="marquee-text">Tarnish Free</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Waterproof</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Lightweight</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Tarnish Free</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Waterproof</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Lightweight</p><span class="marquee-divider" aria-hidden="true">+</span></div></div></div>
+    </section>
+    <!-- SECTION: featured -->
+    <section id="featured" class="feat">
+      <div class="feat__head page-width"><h2 class="h2-sm">Trending Jewellery</h2></div>
+      <div class="slider-wrap">
+        <ul class="slider feat__grid" id="feat-slider"></ul>
+        <div class="slider-buttons" data-slider="feat-slider">
+          <button type="button" class="slider-button" data-dir="-1" aria-label="Previous products"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+          <div class="slider-counter" aria-live="polite"><span class="slider-counter__current">1</span><span aria-hidden="true">/</span><span class="slider-counter__total">7</span></div>
+          <button type="button" class="slider-button" data-dir="1" aria-label="Next products"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
+        </div>
+      </div>
+      <div class="feat__all"><a class="link underlined-link" href="pages/placeholder.html?slug=best-sellers" aria-label="View all products in the Best Sellers collection">View all</a></div>
+    </section>
+    <!-- SECTION: newsletter -->
+    <section id="newsletter" class="news">
+      <div class="news__wrap">
+        <h2 class="h2-sm news__heading">Subscribe to our emails</h2>
+        <p class="news__sub">Be the first to know about new collections and exclusive offers.</p>
+        <form class="news__form" id="news-form" novalidate>
+          <div class="news__field">
+            <input class="news__input" id="news-email" type="email" name="email" autocomplete="email" placeholder=" " required aria-describedby="news-msg">
+            <label class="news__label" for="news-email">Email</label>
+            <button type="submit" class="news__btn" aria-label="Subscribe"><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></button>
+          </div>
+          <p class="news__msg" id="news-msg" role="alert" hidden></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- SECTION: footer -->
+  <footer id="site-footer" class="footer">
+    <div class="footer__content-top page-width">
+      <div class="footer__blocks" id="footer-blocks"></div>
+    </div>
+    <div class="footer__content-bottom page-width">
+      <ul class="footer__policies" id="footer-policies"><li class="footer__copyright">© 2026, House of Vincy</li></ul>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="page-overlay" id="page-overlay" hidden></div>
+
+  <!-- cart drawer -->
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Cart" aria-hidden="true">
+    <div class="cart-drawer__head">
+      <h2 class="cart-drawer__title">Your cart</h2>
+      <button type="button" class="header__icon" id="cart-close" aria-label="Close cart"><svg class="icon icon-close" viewBox="0 0 18 17" fill="none"><path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"/></svg></button>
+    </div>
+    <div class="cart-drawer__body" id="cart-body"></div>
+    <div class="cart-drawer__foot" id="cart-foot" hidden>
+      <div class="cart-drawer__subtotal"><span>Subtotal</span><span id="cart-subtotal">Rs. 0.00</span></div>
+      <button type="button" class="btn" id="cart-checkout">Checkout</button>
+      <p class="cart-drawer__note" id="cart-note" role="status" hidden>Checkout is not part of this frontend-only demo.</p>
+    </div>
+  </aside>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

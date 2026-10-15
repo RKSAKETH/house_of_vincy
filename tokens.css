@@ -1,0 +1,256 @@
+/* ==========================================================================
+   House of Vincy: design tokens
+   Fonts, colours, type scale, spacing, radii and breakpoints used by css/site.css.
+   All sizes are in px. Change a value here and it updates across the site.
+   ========================================================================== */
+
+/* ---- Fonts -----------------------------------------------------------------
+   Both families are Google Fonts under the SIL Open Font License (loaded in index.html):
+     Playfair Display 400, 700 (body, nav, cards, prices, footer links)
+     Fraunces 400            (headings, announcement bar, footer headings)
+   Playfair Display 400/700 italic are declared but never
+   used on the homepage (status "unloaded"), so they are not loaded.        */
+/* @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400&family=Playfair+Display:wght@400;700&display=swap"); */
+
+:root {
+  /* ---- Font families ---------------------------------------------------- */
+  --font-body: "Playfair Display", serif;
+  --font-heading: "Fraunces", serif;
+  --weight-regular: 400;
+  --weight-bold: 700;
+
+  /* ---- Colour schemes ----------------------------------------------------
+     scheme-1 (light): bg #fff, fg #121212, text = fg @ .75
+     scheme-2 (pink):  bg #fbd9e8 (collection-card label area)
+     scheme-3 (navy):  bg #242833 (sold-out badge)
+     scheme-4 (dark):  bg #121212 (announcement, marquee, newsletter, footer)
+     (scheme-5 blue #334fb4 exists in the theme but is unused on the homepage) */
+  --color-white: #ffffff;
+  --color-ink: #121212;                       /* rgb(18,18,18) */
+  --color-ink-75: rgba(18, 18, 18, 0.75);     /* body copy, nav links */
+  --color-ink-85: rgba(18, 18, 18, 0.85);     /* "View all" link */
+  --color-ink-08: rgba(18, 18, 18, 0.08);     /* header bottom border */
+  --color-ink-10: rgba(18, 18, 18, 0.10);     /* dropdown border, card borders */
+  --color-ink-55: rgba(18, 18, 18, 0.55);     /* input border (light) */
+  --color-ink-05: rgba(18, 18, 18, 0.05);     /* dropdown shadow */
+  --color-dark-bg: #121212;
+  --color-on-dark: #ffffff;
+  --color-on-dark-75: rgba(255, 255, 255, 0.75);   /* newsletter sub, footer text/links */
+  --color-on-dark-55: rgba(255, 255, 255, 0.55);   /* newsletter input border */
+  --color-on-dark-08: rgba(255, 255, 255, 0.08);   /* announcement bar bottom border */
+  --color-on-dark-10: rgba(255, 255, 255, 0.10);   /* badge border */
+  --color-pink: #fbd9e8;                      /* rgb(251,217,232) collection label */
+  --color-badge-bg: #242833;                  /* rgb(36,40,51) sold-out */
+  --color-badge-fg: #ffffff;
+  --color-overlay-search: rgba(18, 18, 18, 0.5);   /* dim behind the search panel */
+
+  /* ---- Type scale (size / line-height / letter-spacing) -----------------
+     Desktop values; mobile overrides listed beneath where measured.        */
+  --type-body-size: 19.2px;       --type-body-lh: 32px;      --type-body-ls: 0.72px;  /* mobile/rich: 18px / 30px */
+  --type-announce-size: 14.3px;   --type-announce-lh: 18.59px; --type-announce-ls: 1.2px; /* mobile 13.2px / 17.16px */
+  --type-nav-size: 16.8px;        --type-nav-lh: 21px;       --type-nav-ls: 0.72px;   /* top-level item */
+  --type-submenu-size: 16.8px;    --type-submenu-ls: 0.48px;                          /* dropdown links */
+  --type-h2-size: 44px;           --type-h2-lh: 57.2px;      --type-h2-ls: 0.66px;    /* section titles; mobile 33px / 42.9px */
+  --type-h2-sm-size: 26.4px;      --type-h2-sm-lh: 34.32px;  --type-h2-sm-ls: 0.66px; /* rich-text + newsletter heading; mobile 22px / 28.6px for both rich-text and newsletter headings */
+  --type-card-title-size: 19.8px; --type-card-title-lh: 25.74px; --type-card-title-ls: 0.66px; /* weight 700; mobile 18.7px / 24.31px */
+  --type-price-size: 19.2px;      --type-price-lh: 27.2px;   --type-price-ls: 1.2px;
+  --type-badge-size: 14.4px;      --type-badge-lh: 14.4px;   --type-badge-ls: 1.2px;
+  --type-link-size: 16.8px;       --type-link-lh: 28px;      --type-link-ls: 0.72px;  /* "View all", footer links */
+  --type-footer-head-size: 19.8px; --type-footer-head-lh: 25.74px; --type-footer-head-ls: 0.66px; /* tablet/mobile 17.6px / 22.88px */
+  --type-footer-body-size: 19.8px; --type-footer-body-lh: 25.74px; /* Fraunces; tablet/mobile 17.6px / 22.88px */
+  --type-marquee-size: 18px;      --type-marquee-lh: 30px;   --type-marquee-ls: 0.72px; /* uppercase */
+  --type-input-size: 19.2px;      --type-input-lh: 27.2px;   --type-input-ls: 0.48px;
+
+  /* ---- Layout ------------------------------------------------------------ */
+  --page-max: 1440px;                 /* --page-width 120rem @ 12px */
+  --page-pad-desktop: 60px;           /* 5rem */
+  --page-pad-tablet: 18px;            /* measured at 768 and 390 */
+  --page-pad-mobile: 18px;
+  --section-gap: 0px;                 /* --spacing-sections-desktop/mobile = 0 */
+  --section-pad-top: 36px;            /* collection + featured: 36px; mobile 27px */
+  --section-pad-top-mobile: 27px;
+  --rich-pad-top: 40px; --rich-pad-bottom: 52px;   /* mobile 30px / 39px */
+  --rich-text-max: 936px;             /* desktop content column; tablet 600px; mobile 314px (inset 38px) */
+  --grid-gap-desktop: 8px;            /* --grid-desktop-*-spacing */
+  --grid-gap-mobile: 4px;             /* --grid-mobile-*-spacing */
+  --footer-pad-y: 36px;               /* mobile 27px */
+  --footer-col-gap: 8px;              /* column gap measured; blocks are 324px wide on 1320 */
+  --footer-row-gap: 72px;
+  --newsletter-pad: 40px 108px 49px;   /* bottom 49px from measured section height 262.3; mobile 30px 40px 39px */
+  --newsletter-field-width: 432px;    /* centered; height 56px */
+
+  /* ---- Header ------------------------------------------------------------ */
+  --announce-height: 46.6px;          /* 1 line (desktop); wraps to 2-3 lines at narrower widths (62px tablet, 76.5px mobile) */
+  --header-height: 154px;             /* all viewports (logo 135px + padding) */
+  --header-logo-w: 90px; --header-logo-h: 135px;
+  --header-grid-desktop: 99px 1019px 154px;   /* logo | nav | icons, left aligned */
+  --nav-item-pad: 14.4px;
+  --nav-item-pad-x: 32.4px;           /* measured as list-item padding 14.4px 32.4px 14.4px 14.4px */
+  --header-icon-hit: 52.8px;          /* icon button box */
+  --icon-size: 24px;                  /* svg width/height */
+  --icon-cart-w: 44px;                /* cart svg is 44 x 52.8 (viewBox 40x40, meet) */
+  --icon-stroke: 1px;                 /* stroke-width on search/cart icons */
+  --z-header: 3;                      /* sticky, top: 0 */
+  --dropdown-w: 240px;
+  --dropdown-pad: 12px 0;
+  --drawer-w: 390px;                  /* mobile menu drawer = full viewport width */
+
+  /* ---- Cards ------------------------------------------------------------- */
+  --collection-card-radius: 12px;     /* --collection-card-corner-radius 1rem */
+  --collection-media-ratio: 1 / 1;    /* media 434.6 x 434.6 */
+  --collection-label-h: 90.5px;       /* card 525.1 - media 434.6 */
+  --collection-label-pad-x: 24px;     /* heading x offset inside card (measured, desktop + mobile) */
+  --collection-heading-top: 32.4px;   /* heading y below media bottom at desktop (467 - 434.6) */
+  --collection-arrow-w: 16.5px; --collection-arrow-h: 11.78px; /* arrow icon after the title */
+  --product-img-radius: 10px;         /* measured on <img>; .media and .card__inner radius = 0 */
+  --product-info-pad: 20.4px 12px;    /* card-information padding desktop; mobile 15.6px 12px (text sits 12px in from image edge? see SPEC) */
+  --product-media-ratio: 1 / 1;
+  --product-card-w-desktop: 324px;
+  --product-card-h-desktop: 419px;
+  --media-hover-scale: 1.03;          /* img transform on card hover */
+  --badge-radius: 48px;               /* --badge-corner-radius 4rem */
+  --badge-pad: 6px 15.6px 7.2px;
+  --badge-border: 1px solid var(--color-on-dark-10);
+
+  /* ---- Borders, radii, shadows ------------------------------------------ */
+  --border-width: 1px;
+  --radius-button: 0px;               /* --buttons-radius */
+  --radius-input: 0px;                /* --inputs-radius */
+  --shadow-popup: 0 4px 5px 0 rgba(18, 18, 18, 0.05);   /* dropdown / search popup */
+  --shadow-card: none;                /* cards have no shadow at rest */
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --dur-short: 0.1s;
+  --dur-default: 0.2s;
+  --dur-medium: 0.3s;
+  --dur-long: 0.5s;
+  --ease-out-slow: cubic-bezier(0, 0, 0.3, 1);
+  --marquee-duration: 5s;             /* animation: 5s linear infinite marquee */
+  --hero-autoplay: true;              /* Flickity autoPlay: true (default 3s) but each slider has 1 slide, so inert */
+
+  /* ---- Breakpoints --------------------------------------------------------
+     (counted across all theme CSS: 750px x60+, 990px x30, 749px, 989px,
+      plus custom.css toggles .desktop-only/.mobile-only at 767px)
+     CSS cannot use custom properties in @media; documented here.
+       mobile:  <= 749px
+       tablet:  750px - 989px
+       desktop: >= 990px
+       hero image swap (custom.css): >= 767px = desktop art, < 767px = mobile art */
+  --bp-tablet: 750px;
+  --bp-desktop: 990px;
+  --bp-hero-swap: 767px;
+}
+
+/* ---- Header, drawer and footer ------------------------------------------- */
+:root {
+  --announce-btn: 44px;               /* prev/next hit box; caret icon 20x7.2 rotated 90deg; colour white@.75 */
+  --announce-min-h: 45.6px;           /* 1-line message row; messages have 12px vertical padding */
+  --announce-pad-y: 12px;
+  --caret-w: 10px; --caret-h: 6px;    /* nav caret (viewBox 10x6) */
+  --nav-caret-gap: 9.6px;
+  --nav-summary-pad: 14.4px 32.4px 14.4px 14.4px;   /* parent item (reserves caret space); plain link: 14.4px */
+  --submenu-link-pad: 9.6px 24px;
+  --submenu-link-lh: 21px;
+  --header-inner-h: 153px;            /* + 1px border = 154px */
+  --header-icon-left: 21.6px;         /* mobile burger x; tablet 24px */
+  --drawer-item-size: 21.6px; --drawer-item-lh: 27px; --drawer-item-ls: 0.72px;
+  --drawer-item-pad: 13.2px 36px;     /* parent items: 13.2px 62.4px 13.2px 36px */
+  --drawer-item-gap: 2.4px;           /* row pitch 55.8 = 53.4 + 2.4 */
+  --drawer-top-pad: 36px;
+  --drawer-back-size: 16.8px; --drawer-back-pad: 14.4px 31.2px 14.4px 36px; --drawer-back-h: 51px; --drawer-back-top: 18px;
+  --drawer-arrow-w: 15px; --drawer-arrow-h: 20px;
+  --footer-block-pad-top: 0px;        /* blocks start at the footer padding edge (the 24px seen mid-animation was scroll-trigger offset) */
+  --footer-top-pad-bottom: 60px; --footer-top-pad-x: 60px;   /* mobile: 0 40px 36px */
+  --footer-head-mb: 24px;
+  --footer-link-pad-b: 6px;           /* mobile: 12px 0 */
+  --footer-bottom-border: 1px solid var(--color-on-dark-08);
+  --footer-bottom-pad-top: 36px;
+  --footer-bottom-size: 13.2px; --footer-bottom-lh: 20.9px; --footer-bottom-ls: 0.84px;
+  --footer-bottom-copy-offset: 39px;  /* extra offset above the copyright line */
+  --footer-text-mb-mobile: 48px;
+  --cart-bubble: 18px;                /* own design */
+}
+
+/* ---- Sections ------------------------------------------------------------- */
+:root {
+  /* hero / image slider art ratios (natural image sizes; width/height) */
+  --ratio-hero-d: 1672 / 940;    --ratio-hero-m: 820 / 1918;     /* supplied client banners */
+  --ratio-trust-d: 1536 / 1024;  --ratio-trust-m: 803 / 1958;    /* supplied banners */
+  --ratio-reviews-d: 1536 / 1024; --ratio-reviews-m: 1024 / 1536; /* supplied client banners */
+  --art-swap: 767px;             /* desktop art >= 767px, mobile art below (custom.css) */
+
+  /* sections */
+  --coll-pad-top: 36px; --coll-pad-bottom: 36px;               /* mobile 27px / 27px */
+  --coll-title-mb: 36px;
+  --feat-pad-top: 44px; --feat-pad-bottom: 36px;               /* mobile pad-top 33px */
+  --feat-title-mb: 36px;                                       /* title end -> grid; tablet/mobile 30px */
+  --feat-grid-mb: 24px;                                        /* grid end -> "View all" (desktop) */
+
+  /* slider (tablet + mobile): measured on both collection list and featured collection */
+  --slider-item-pad-y: 6px;
+  --slider-start-pad: 18px;
+  --slider-peek: 54px;                                         /* featured: 2 cards + 54px peek */
+  --slider-btn-row: 44px;
+  --slider-counter-w: 52.8px;
+  --slider-counter-size: 14.4px; --slider-counter-lh: 22.8px; --slider-counter-ls: 0.84px;  /* mobile 12px / 19px */
+  --slider-icon-disabled: rgba(18, 18, 18, 0.3);
+  --coll-slider-mb: 12px; --feat-slider-mb: 18px;
+
+  /* collection card */
+  --coll-card-w-d: 434.6px; --coll-card-h-d: 525.1px;
+  --coll-label-h-d: 90.5px;
+  --coll-label-pad-y: 32.4px;                                  /* mobile 27.6px; label = pad + 25.74 title + pad */
+
+  /* product card (desktop 324 x 419; tablet 340 x 435; mobile 155 x 256) */
+  --product-info-pt: 20.4px;                                   /* mobile 15.6px */
+  --product-title-size: 14.3px; --product-title-lh: 18.59px;   /* .card__heading.h5 (bold, ls .66); mobile 13.2px / 17.16px. NB: --type-card-title-* (19.8px) is the collection-card title */
+  --product-price-mt: 8.4px; --product-price-lh: 27.2px;
+  --product-info-pb: 20.4px;                                   /* mobile 15.6px */
+  /* "View all" wrapper height = body line-height (32px / 30px mobile); link sits at the wrapper bottom (4px / 2px offset) */
+  --badge-offset: 12px;                                        /* sold-out badge inset from image corner (see SPEC) */
+
+  /* marquee */
+  --marquee-pad-y: 20px;
+  --marquee-gap: 10px;                                         /* gap between word and "+" */
+  --marquee-plus-size: 16px;
+  --marquee-item-min-w: 100px;
+  --marquee-text-my: 10px;                                     /* default <p> margin: container 50 = 30 line + 2 x 10 */
+  --marquee-plus-px: 10px;                                     /* wrapper = text + 10 gap + 10 + plus + 10 = 172.2 for 'Tarnish Free' */
+
+  /* rich text */
+  --rich-p-mb: 19.2px;
+  --rich-max-tablet: 600px; --rich-max-mobile: 314px;
+
+  /* newsletter */
+  --newsletter-heading-mb: 25.1px;                             /* heading end -> subheading (5848 -> 5873.1) */
+  --newsletter-sub-mb: 25.6px;                                 /* subheading end -> field */
+  --newsletter-sub-max: 840px;
+  --newsletter-msg-size: 13.2px; --newsletter-msg-lh: 20.9px;  /* newsletter validation message */
+  --newsletter-btn-w: 52.8px;
+}
+
+/* ---- Responsive overrides (values measured at 768 and 390) ---------------- */
+@media screen and (max-width: 989px) {
+  :root {
+    --type-footer-head-size: 17.6px; --type-footer-head-lh: 22.88px;
+    --type-footer-body-size: 17.6px; --type-footer-body-lh: 22.88px;
+    --footer-link-pad-b: 12px;
+  }
+}
+@media screen and (max-width: 749px) {
+  :root {
+    --type-body-size: 18px; --type-body-lh: 30px;
+    --type-announce-size: 13.2px; --type-announce-lh: 17.16px;
+    --type-h2-size: 33px; --type-h2-lh: 42.9px;
+    --type-h2-sm-size: 22px; --type-h2-sm-lh: 28.6px;     /* newsletter heading (measured: rich-text h2 = 22px on mobile as well) */
+    --type-card-title-size: 18.7px; --type-card-title-lh: 24.31px;
+    --section-pad-top: 27px;
+    --product-title-size: 13.2px; --product-title-lh: 17.16px; --product-info-pt: 15.6px; --product-info-pb: 15.6px;
+    --coll-pad-top: 27px; --coll-pad-bottom: 27px; --coll-label-pad-y: 27.6px; --feat-pad-top: 33px; --feat-pad-bottom: 29px;
+    --slider-counter-size: 12px; --slider-counter-lh: 19px;
+    --rich-pad-top: 30px; --rich-pad-bottom: 39px; --rich-p-mb: 18px;
+    --newsletter-pad: 30px 40px 39px; --newsletter-heading-mb: 24px; --newsletter-sub-mb: 24px;
+    --footer-pad-y: 27px;
+    --footer-row-gap: 4px;
+  }
+}

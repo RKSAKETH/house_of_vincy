@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# test and tool output
+test-output/
+*.log
+.tmp/
+
+# local-only working files (design measurement, scraping/diff tooling, saved reference material, original uploads, notes)
+dev/
+reference/
+assets/originals/
+SPEC.md
+PROGRESS.md
+PROMPT.md
+CLAUDE.md

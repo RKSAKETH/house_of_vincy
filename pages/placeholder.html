@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House of Vincy: placeholder page</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400&family=Playfair+Display:wght@400;700&display=swap">
+<link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../css/site.css"></head>
+<body>
+<main class="placeholder-page page-width">
+  <h1 id="ph-title">Placeholder page</h1>
+  <p>This page is not part of the homepage build. <span id="ph-detail"></span></p>
+  <p><a class="link underlined-link" href="../index.html">Back to the homepage</a></p>
+</main>
+<script>
+  var q = new URLSearchParams(location.search);
+  var slug = q.get('slug') || 'page';
+  document.getElementById('ph-title').textContent = 'PLACEHOLDER: ' + slug.replace(/[-_]/g, ' ');
+  if (q.get('q')) document.getElementById('ph-detail').textContent = 'Search term: “' + q.get('q') + '”.';
+</script>
+</body></html>
