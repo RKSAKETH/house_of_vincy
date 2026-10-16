@@ -74,14 +74,14 @@ h1, h2, h3, p { margin: 0; }
 .header__icon--menu.is-open .icon-close { display: block; }
 .cart-count { position: absolute; right: 7px; bottom: 7px; min-width: var(--cart-bubble); height: var(--cart-bubble); padding: 0 4px; border-radius: 9px; background: var(--color-ink); color: var(--color-white); font: 400 11px/var(--cart-bubble) var(--font-body); letter-spacing: 0; text-align: center; }
 
-/* desktop: logo | nav | icons */
-@media (min-width: 990px) {
+/* wide desktop (7 nav items need 1300px): logo | nav | icons */
+@media (min-width: 1300px) {
   .header { grid-template-columns: auto 1fr auto; column-gap: 24px; }
   .header__icon--menu { display: none; }
   .header__icons { margin-right: -4.8px; }
 }
 /* tablet + mobile: burger | logo | icons */
-@media (max-width: 989px) {
+@media (max-width: 1299px) {
   .header { grid-template-columns: 1fr auto 1fr; padding-left: 24px; padding-right: 33.6px; }
   .header__nav { display: none; }
   .header__icon--menu { grid-column: 1; grid-row: 1; justify-self: start; }
@@ -136,7 +136,7 @@ summary.nav-item::-webkit-details-marker { display: none; }
 .menu-drawer__back { display: flex; align-items: center; gap: 9.6px; width: 100%; height: var(--drawer-back-h); margin-top: var(--drawer-back-top); padding: var(--drawer-back-pad); font-size: var(--drawer-back-size); color: var(--color-ink); text-align: left; }
 .menu-drawer__back .icon-arrow { width: 14px; height: 10px; }
 @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
-@media (min-width: 990px) { .menu-drawer { display: none; } }
+@media (min-width: 1300px) { .menu-drawer { display: none; } }
 
 /* ---------------------------------------------------------------- search */
 .search-modal { position: absolute; inset: 0; z-index: 6; background: var(--color-white); border-bottom: var(--border-width) solid var(--color-ink-08); display: flex; align-items: center; justify-content: center; padding-inline: 18px; }
@@ -372,6 +372,10 @@ img.mobile-only { display: block; }
 .about__list--steps { list-style: decimal; }
 @media (max-width: 989px) { .about__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 749px) { .about__grid { grid-template-columns: 1fr; } }
+
+/* Why Trust page */
+.about--page { padding-top: 0; }
+.about--page .about__title { margin-top: var(--policy-title-my); }
 
 /* ---------------------------------------------------------------- privacy policy page (layout measured on the reference policy page) */
 .policy { max-width: var(--policy-max); margin: 0 auto; padding: 0 var(--policy-pad-x) var(--policy-pad-bottom); }

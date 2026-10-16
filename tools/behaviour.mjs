@@ -35,11 +35,11 @@ await p.evaluate(() => scrollTo(0, 0));
 
 // navbar: single-page anchors, Privacy Policy is the only page
 const navLinks = await p.$$eval('.nav-list a', n => n.map(a => [a.textContent.trim(), a.getAttribute('href')]));
-check('navbar: Home, Collections, Trending Jewellery, Why Trust House of Vincy, Contact Us, Privacy Policy', navLinks.map(x => x[0]).join('|') === 'Home|Collections|Trending Jewellery|Why Trust House of Vincy|Contact Us|Privacy Policy', navLinks.map(x => x[0]).join('|'));
-check('every nav link is an anchor except Privacy Policy', navLinks.every(([l, h]) => (l === 'Privacy Policy' ? h === 'privacy-policy.html' : h.startsWith('#'))), JSON.stringify(navLinks));
+check('navbar: Home, Collections, Trending Jewellery, Customer Reviews, Why Trust, Contact Us, Privacy Policy', navLinks.map(x => x[0]).join('|') === 'Home|Collections|Trending Jewellery|Customer Reviews|Why Trust House of Vincy|Contact Us|Privacy Policy', navLinks.map(x => x[0]).join('|'));
+check('every nav link is an anchor except Why Trust and Privacy Policy (the only pages)', navLinks.every(([l, h]) => (l === 'Privacy Policy' ? h === 'privacy-policy.html' : l === 'Why Trust House of Vincy' ? h === 'why-trust.html' : h.startsWith('#'))), JSON.stringify(navLinks));
 check('nav fits on one row at 1440', await p.$eval('.nav-list', n => n.scrollWidth <= n.parentElement.clientWidth && n.getBoundingClientRect().height < 80));
 await p.screenshot({ path: OUT + 'behaviour-nav-desktop.png', clip: { x: 0, y: 0, width: 1440, height: 260 } });
-for (const [label, id] of [['Collections', 'collections'], ['Trending Jewellery', 'featured'], ['Why Trust House of Vincy', 'why-trust'], ['Contact Us', 'contact']]) {
+for (const [label, id] of [['Collections', 'collections'], ['Trending Jewellery', 'featured'], ['Customer Reviews', 'reviews'], ['Contact Us', 'contact']]) {
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(1200);
   await p.click(`.nav-list >> text="${label}"`); await p.waitForTimeout(1800);
   const r = await p.evaluate(id => ({ top: document.getElementById(id).getBoundingClientRect().top, hdr: document.querySelector('#site-header').getBoundingClientRect().bottom, y: scrollY, max: document.documentElement.scrollHeight - innerHeight }), id);
@@ -96,15 +96,15 @@ p.on('pageerror', e => errs4.push(e.message));
 await p.goto(URL_, { waitUntil: 'networkidle' });
 await p.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
 const order = await p.$$eval('main > section', n => n.map(s => s.id));
-check('sections in page order', order.join(',') === 'hero-1,trust,reviews,collections,rich-text,marquee,featured,why-trust,newsletter', order.join(','));
+check('sections in page order', order.join(',') === 'hero-1,trust,reviews,collections,rich-text,marquee,featured,newsletter', order.join(','));
 check('footer shows client phone + address', (await p.textContent('#site-footer')).includes('6385202221') && (await p.textContent('#site-footer')).includes('251 Velachery Main Road'));
 check('footer phone is a tel: link', (await p.getAttribute('.footer-contact', 'href')) === 'tel:+916385202221');
 check('no PLACEHOLDER text left in copy/footer/products', !(await p.textContent('#rich-text')).includes('PLACEHOLDER') && !(await p.textContent('#site-footer')).includes('PLACEHOLDER') && !(await p.textContent('.announce-track')).includes('PLACEHOLDER') && !(await p.textContent('#featured')).includes('PLACEHOLDER'));
-const badLinks = await p.$$eval('a[href]', n => n.map(a => a.getAttribute('href')).filter(h => !(h.startsWith('#') || h.startsWith('tel:') || h === 'privacy-policy.html' || h === 'index.html')));
+const badLinks = await p.$$eval('a[href]', n => n.map(a => a.getAttribute('href')).filter(h => !(h.startsWith('#') || h.startsWith('tel:') || h === 'privacy-policy.html' || h === 'why-trust.html' || h === 'index.html')));
 check('no link on the homepage points at a placeholder or unknown page', badLinks.length === 0, badLinks.join(', '));
 const missing = await p.$$eval('a[href^="#"]', n => n.map(a => a.getAttribute('href').slice(1)).filter(id => id && !document.getElementById(id)));
 check('every in-page anchor has a matching element', missing.length === 0, missing.join(', '));
-check('Why Trust section has the supplied heading + 6 trust cards', (await p.textContent('#why-trust h2')) === 'Why Trust House of Vincy?' && (await p.$$eval('#why-trust .about__card', n => n.length)) === 6);
+check('homepage welcome copy is the supplied text (₹3,000 minimum order)', (await p.textContent('#rich-text')).includes('minimum order value of ₹3,000'));
 check('logo image shows in header and is loaded', (await p.$eval('.header__logo-img', n => n.complete && n.naturalWidth > 0 && n.getBoundingClientRect().height > 100)));
 check('header is still 154px tall with the logo', Math.round(await p.$eval('#site-header', n => n.getBoundingClientRect().height)) === 154);
 check('hero banner (desktop): image visible, call hotspot is tel:, shop hotspot present', (await p.isVisible('#hero-1 .slide-art--desktop .slide-img')) && (await p.getAttribute('#hero-1 .slide-art--desktop .hotspot >> nth=0', 'href')) === 'tel:+916385202221' && (await p.isVisible('#hero-1 .slide-art--desktop .hotspot >> nth=1')));
@@ -194,7 +194,7 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mob
     check(`drawer opens @${name}`, await p.isVisible('#menu-drawer'));
     await p.screenshot({ path: `${OUT}behaviour-drawer-${name}.png` });
     const dl = await p.$$eval('#drawer-list a', n => n.map(a => a.textContent.trim()));
-    check(`drawer lists the 6 single-page items @${name}`, dl.length === 6 && dl[0] === 'Home' && dl[5] === 'Privacy Policy', dl.join('|'));
+    check(`drawer lists the 7 nav items @${name}`, dl.length === 7 && dl[0] === 'Home' && dl[6] === 'Privacy Policy', dl.join('|'));
     await p.click('#drawer-list >> text="Trending Jewellery"'); await p.waitForTimeout(1800);
     check(`drawer link closes the drawer and scrolls to #featured @${name}`, !(await p.isVisible('#menu-drawer')) && (await p.evaluate(() => document.getElementById('featured').getBoundingClientRect().top < innerHeight / 2)));
     await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(500);
@@ -209,6 +209,23 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mob
   }
   await ctx.close();
 }
+// ---- why trust page
+ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+p = await ctx.newPage();
+const werr = [];
+p.on('pageerror', e => werr.push(e.message));
+await p.goto(URL_ + 'why-trust.html', { waitUntil: 'networkidle' });
+check('why-trust page: heading, 6 trust cards, current nav item, no overflow/errors', (await p.textContent('h2.about__title')) === 'Why Trust House of Vincy?' && (await p.$$eval('.about__card', n => n.length)) === 6 && (await p.$$eval('#nav-list [aria-current=page]', n => n.map(a => a.textContent.trim()))).join() === 'Why Trust House of Vincy' && (await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) <= 0 && werr.length === 0);
+await p.screenshot({ path: OUT + 'behaviour-whytrust-desktop.png' });
+await ctx.close();
+// from the homepage, the nav item opens that page
+ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+p = await ctx.newPage();
+await p.goto(URL_, { waitUntil: 'networkidle' });
+await p.click('.nav-list >> text="Why Trust House of Vincy"'); await p.waitForURL(/why-trust\.html/);
+check('homepage nav "Why Trust" opens why-trust.html', true);
+await ctx.close();
+
 // ---- privacy policy page
 for (const [name, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   ctx = await browser.newContext({ viewport: { width: w, height: h }, isMobile: name === 'mobile', hasTouch: name === 'mobile' });
@@ -221,7 +238,7 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   check(`privacy page @${name}: 7 sections, no overflow, no errors`, m.h3count === 7 && m.ov <= 0 && perr.length === 0, JSON.stringify(m) + perr.join());
   if (name === 'desktop') {
     const hrefs = await p.$$eval('#nav-list a', n => n.map(a => a.getAttribute('href')));
-    check('privacy page nav links back to homepage sections', hrefs.slice(0, 5).every(h => h.startsWith('index.html#')) && hrefs[5] === 'privacy-policy.html', hrefs.join());
+    check('privacy page nav links back to homepage sections', hrefs.slice(0, 4).every(h => h.startsWith('index.html#')) && hrefs[4] === 'why-trust.html' && hrefs[5] === 'index.html#contact' && hrefs[6] === 'privacy-policy.html', hrefs.join());
     check('privacy page: current nav item marked', (await p.$$eval('#nav-list [aria-current=page]', n => n.length)) === 1);
     await p.click('#nav-list >> text="Collections"'); await p.waitForURL(/index\.html#collections/); await p.waitForTimeout(1500);
     check('nav from policy page lands on homepage #collections', new URL(p.url()).hash === '#collections' && (await p.evaluate(() => document.getElementById('collections').getBoundingClientRect().top < 400)));

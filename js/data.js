@@ -1,13 +1,14 @@
 // Local data (frontend only). Categories, address and phone come from the client brief.
 // Product names are descriptive labels for the supplied photos; PRICES HAVE NOT BEEN SUPPLIED yet:
 // set `price` (a number, in rupees) on each product below and the cards, search and cart pick it up.
-// Single-page site: every link is an anchor on the homepage, except the Privacy Policy page.
+// Single-page site: every link is an anchor on the homepage, except the Privacy Policy and Why Trust pages.
 // `target` is the section id on index.html (or the policy page file).
 export const NAV = [
   { label: 'Home', target: 'top' },
   { label: 'Collections', target: 'collections' },
   { label: 'Trending Jewellery', target: 'featured' },
-  { label: 'Why Trust House of Vincy', target: 'why-trust' },
+  { label: 'Customer Reviews', target: 'reviews' },
+  { label: 'Why Trust House of Vincy', page: 'why-trust.html' },
   { label: 'Contact Us', target: 'contact' },
   { label: 'Privacy Policy', page: 'privacy-policy.html' },
 ];
@@ -41,6 +42,7 @@ export const FOOTER = {
   },
   categories: CATEGORIES.map(n => ({ label: n.label, target: 'collections' })),
   links: [
+    { label: 'Why Trust House of Vincy', page: 'why-trust.html' },
     { label: 'Privacy Policy', page: 'privacy-policy.html' },
     { label: 'Contact Us', target: 'contact' },
   ],

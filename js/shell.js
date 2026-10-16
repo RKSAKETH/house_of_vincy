@@ -34,7 +34,7 @@ export function initShell({ base = '', onDrawerOpen = () => {} } = {}) {
   menuToggle.addEventListener('click', () => setDrawer(!open));
   // choosing an item closes the drawer; the browser then smooth-scrolls to the anchor
   drawer.addEventListener('click', e => { if (e.target.closest('a')) setDrawer(false); });
-  addEventListener('resize', () => { if (open && matchMedia('(min-width: 990px)').matches) setDrawer(false); });
+  addEventListener('resize', () => { if (open && matchMedia('(min-width: 1300px)').matches) setDrawer(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) { setDrawer(false); menuToggle.focus(); } });
 
   /* anchored sections stop below the sticky header */

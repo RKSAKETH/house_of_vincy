@@ -15,13 +15,13 @@ You can also open `index.html` through any static file server. (Opening the file
 
 Announcement bar, sticky header with category navigation (dropdowns, a "More" menu when categories don't fit, mobile and tablet drawer), search with suggestions, cart drawer, hero banner, trust banner, customer reviews banner, collections, welcome text, scrolling highlights strip, trending products (wishlist and add to cart), newsletter signup and footer.
 
-Everything is frontend-only: the cart, wishlist and newsletter email are kept in the browser (localStorage). There is no checkout, account or payment, and it is a single-page site: the navbar scrolls to sections of the homepage, and the Privacy Policy is the only separate page.
+Everything is frontend-only: the cart, wishlist and newsletter email are kept in the browser (localStorage). There is no checkout, account or payment, and it is a single-page site: the navbar scrolls to sections of the homepage, and Why Trust House of Vincy and the Privacy Policy are the only separate pages.
 
 ## Project layout
 
 ```
 index.html          the homepage (single page; the navbar scrolls to its sections)
-privacy-policy.html the only separate page
+privacy-policy.html, why-trust.html  the only separate pages
 tokens.css          design tokens: colours, fonts, type scale, spacing, breakpoints
 css/site.css        styles (uses tokens.css)
 js/main.js          behaviour: search, cart, sliders, wishlist, newsletter
