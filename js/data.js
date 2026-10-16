@@ -8,8 +8,8 @@ export const NAV = [
   { label: 'Collections', target: 'collections' },
   { label: 'Trending Jewellery', target: 'featured' },
   { label: 'Customer Reviews', target: 'reviews' },
-  { label: 'Why Trust House of Vincy', page: 'why-trust.html' },
   { label: 'Contact Us', target: 'contact' },
+  { label: 'Why Trust House of Vincy', page: 'why-trust.html' },
   { label: 'Privacy Policy', page: 'privacy-policy.html' },
 ];
 // Where an item points from the homepage ('') or from the policy page ('index.html').

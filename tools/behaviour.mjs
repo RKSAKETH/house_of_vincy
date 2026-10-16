@@ -35,7 +35,7 @@ await p.evaluate(() => scrollTo(0, 0));
 
 // navbar: single-page anchors, Privacy Policy is the only page
 const navLinks = await p.$$eval('.nav-list a', n => n.map(a => [a.textContent.trim(), a.getAttribute('href')]));
-check('navbar: Home, Collections, Trending Jewellery, Customer Reviews, Why Trust, Contact Us, Privacy Policy', navLinks.map(x => x[0]).join('|') === 'Home|Collections|Trending Jewellery|Customer Reviews|Why Trust House of Vincy|Contact Us|Privacy Policy', navLinks.map(x => x[0]).join('|'));
+check('navbar: Home, Collections, Trending Jewellery, Customer Reviews, Why Trust, Contact Us, Privacy Policy', navLinks.map(x => x[0]).join('|') === 'Home|Collections|Trending Jewellery|Customer Reviews|Contact Us|Why Trust House of Vincy|Privacy Policy', navLinks.map(x => x[0]).join('|'));
 check('every nav link is an anchor except Why Trust and Privacy Policy (the only pages)', navLinks.every(([l, h]) => (l === 'Privacy Policy' ? h === 'privacy-policy.html' : l === 'Why Trust House of Vincy' ? h === 'why-trust.html' : h.startsWith('#'))), JSON.stringify(navLinks));
 check('nav fits on one row at 1440', await p.$eval('.nav-list', n => n.scrollWidth <= n.parentElement.clientWidth && n.getBoundingClientRect().height < 80));
 await p.screenshot({ path: OUT + 'behaviour-nav-desktop.png', clip: { x: 0, y: 0, width: 1440, height: 260 } });
@@ -238,7 +238,7 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
   check(`privacy page @${name}: 7 sections, no overflow, no errors`, m.h3count === 7 && m.ov <= 0 && perr.length === 0, JSON.stringify(m) + perr.join());
   if (name === 'desktop') {
     const hrefs = await p.$$eval('#nav-list a', n => n.map(a => a.getAttribute('href')));
-    check('privacy page nav links back to homepage sections', hrefs.slice(0, 4).every(h => h.startsWith('index.html#')) && hrefs[4] === 'why-trust.html' && hrefs[5] === 'index.html#contact' && hrefs[6] === 'privacy-policy.html', hrefs.join());
+    check('privacy page nav links back to homepage sections', hrefs.slice(0, 5).every(h => h.startsWith('index.html#')) && hrefs[5] === 'why-trust.html' && hrefs[6] === 'privacy-policy.html', hrefs.join());
     check('privacy page: current nav item marked', (await p.$$eval('#nav-list [aria-current=page]', n => n.length)) === 1);
     await p.click('#nav-list >> text="Collections"'); await p.waitForURL(/index\.html#collections/); await p.waitForTimeout(1500);
     check('nav from policy page lands on homepage #collections', new URL(p.url()).hash === '#collections' && (await p.evaluate(() => document.getElementById('collections').getBoundingClientRect().top < 400)));
