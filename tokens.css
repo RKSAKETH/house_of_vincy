@@ -220,6 +220,12 @@
   --rich-p-mb: 19.2px;
   --rich-max-tablet: 600px; --rich-max-mobile: 314px;
 
+  /* privacy policy page (measured on ninefashions.com/policies/privacy-policy: container 748.8px incl. 20px side padding; h1 margin 0.67em; ul indent 24px) */
+  --policy-max: 749px; --policy-pad-x: 20px; --policy-title-my: 29.48px; --policy-list-indent: 24px;
+  --policy-pad-bottom: 30px;
+  /* "Why Trust" section: no reference exists, so it reuses the rich-text paddings + card borders; only the card gap/padding are new */
+  --about-gap: 20px; --about-card-pad: 24px;
+
   /* newsletter */
   --newsletter-heading-mb: 25.1px;                             /* heading end -> subheading (5848 -> 5873.1) */
   --newsletter-sub-mb: 25.6px;                                 /* subheading end -> field */
@@ -248,6 +254,7 @@
     --coll-pad-top: 27px; --coll-pad-bottom: 27px; --coll-label-pad-y: 27.6px; --feat-pad-top: 33px; --feat-pad-bottom: 29px;
     --slider-counter-size: 12px; --slider-counter-lh: 19px;
     --rich-pad-top: 30px; --rich-pad-bottom: 39px; --rich-p-mb: 18px;
+    --policy-title-my: 22.11px; --about-gap: 12px; --about-card-pad: 20px;
     --newsletter-pad: 30px 40px 39px; --newsletter-heading-mb: 24px; --newsletter-sub-mb: 24px;
     --footer-pad-y: 27px;
     --footer-row-gap: 4px;

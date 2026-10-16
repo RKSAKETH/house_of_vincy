@@ -1,9 +1,5 @@
-import { NAV, FOOTER, PRODUCTS, SEARCH_TERMS, money, page } from './data.js';
-
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const CARET = '<svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg>';
+import { PRODUCTS, SEARCH_TERMS, money } from './data.js';
+import { $, $$, esc, initShell } from './shell.js';
 const ARROW = '<svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>';
 
 const overlay = $('#page-overlay');
@@ -18,82 +14,8 @@ const headerWrap = $('.header-wrapper');
   $$('[data-announce]').forEach(b => b.addEventListener('click', () => go(b.dataset.announce === 'next' ? 1 : -1)));
 })();
 
-/* ---------- navigation (desktop dropdowns open on click) ---------- */
-const navList = $('#nav-list');
-const navItemHTML = n => n.children
-  ? `<li><details class="nav-details"><summary class="nav-item" role="button" aria-expanded="false"><span>${esc(n.label)}</span>${CARET}</summary>
-      <ul class="nav-submenu">${n.children.map(c => `<li><a class="nav-sublink" href="${c.href}">${esc(c.label)}</a></li>`).join('')}</ul></details></li>`
-  : `<li><a class="nav-item" href="${n.href}"><span>${esc(n.label)}</span></a></li>`;
-// Items that do not fit on one row (10 categories) move into a "More" dropdown, listed with their sub-categories.
-const moreHTML = items => `<li data-more><details class="nav-details nav-more"><summary class="nav-item" role="button" aria-expanded="false"><span>More</span>${CARET}</summary>
-  <ul class="nav-submenu nav-submenu--more">${items.map(n => n.children
-    ? `<li class="nav-more__group"><a class="nav-sublink nav-sublink--group" href="${n.href}">${esc(n.label)}</a><ul>${n.children.map(c => `<li><a class="nav-sublink nav-sublink--child" href="${c.href}">${esc(c.label)}</a></li>`).join('')}</ul></li>`
-    : `<li><a class="nav-sublink nav-sublink--group" href="${n.href}">${esc(n.label)}</a></li>`).join('')}</ul></details></li>`;
-let details = [];
-function bindDetails() {
-  details = $$('.nav-details', navList);
-  details.forEach(d => {
-    const s = $('summary', d);
-    d.addEventListener('toggle', () => {
-      s.setAttribute('aria-expanded', d.open);
-      if (d.open) details.forEach(o => { if (o !== d) o.open = false; });
-    });
-  });
-}
-function layoutNav() {
-  navList.innerHTML = NAV.map(navItemHTML).join('');
-  if (matchMedia('(min-width: 990px)').matches) {
-    const avail = navList.parentElement.clientWidth;
-    const widths = $$(':scope > li', navList).map(li => li.getBoundingClientRect().width);
-    if (widths.reduce((a, b) => a + b, 0) > avail) {
-      navList.innerHTML = moreHTML([]);
-      const moreW = $(':scope > li', navList).getBoundingClientRect().width;
-      let used = moreW, keep = 0;
-      while (keep < widths.length && used + widths[keep] <= avail) used += widths[keep++];
-      navList.innerHTML = NAV.slice(0, keep).map(navItemHTML).join('') + moreHTML(NAV.slice(keep));
-    }
-  }
-  bindDetails();
-}
-layoutNav();
-document.fonts.ready.then(layoutNav);
-let navResizeTimer;
-addEventListener('resize', () => { clearTimeout(navResizeTimer); navResizeTimer = setTimeout(layoutNav, 120); });
-document.addEventListener('click', e => { if (!e.target.closest('.nav-details')) details.forEach(d => (d.open = false)); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') details.forEach(d => { if (d.open) { d.open = false; $('summary', d).focus(); } }); });
-
-/* ---------- mobile / tablet drawer ---------- */
-const menuToggle = $('#menu-toggle');
-const drawer = $('#menu-drawer');
-const drawerList = $('#drawer-list');
-drawerList.innerHTML = NAV.map(n => n.children
-  ? `<li><button type="button" class="menu-drawer__item menu-drawer__item--parent" aria-expanded="false" data-sub="${n.slug}"><span>${esc(n.label)}</span>${ARROW}</button>
-      <div class="menu-drawer__sub" id="sub-${n.slug}" hidden>
-        <button type="button" class="menu-drawer__back" data-back><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none" style="transform:scaleX(-1)"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg><span>${esc(n.label)}</span></button>
-        <ul>${n.children.map(c => `<li><a class="menu-drawer__item" href="${c.href}">${esc(c.label)}</a></li>`).join('')}</ul></div></li>`
-  : `<li><a class="menu-drawer__item" href="${n.href}">${esc(n.label)}</a></li>`).join('');
-
-let drawerOpen = false;
-function setDrawer(open) {
-  drawerOpen = open;
-  if (open) { closeSearch(); closeCart(); }
-  drawer.hidden = !open;
-  menuToggle.setAttribute('aria-expanded', open);
-  menuToggle.classList.toggle('is-open', open);
-  document.body.classList.toggle('no-scroll', open);
-  if (open) {
-    drawer.style.height = '';
-    const top = drawer.getBoundingClientRect().top;
-    drawer.style.height = `${Math.max(0, innerHeight - top)}px`;
-  } else $$('.menu-drawer__sub', drawer).forEach(s => (s.hidden = true));
-}
-menuToggle.addEventListener('click', () => setDrawer(!drawerOpen));
-drawer.addEventListener('click', e => {
-  const parent = e.target.closest('[data-sub]');
-  if (parent) { $(`#sub-${parent.dataset.sub}`).hidden = false; parent.setAttribute('aria-expanded', 'true'); return; }
-  if (e.target.closest('[data-back]')) { const s = e.target.closest('.menu-drawer__sub'); s.hidden = true; $('[data-sub]', s.parentElement).setAttribute('aria-expanded', 'false'); }
-});
-addEventListener('resize', () => { if (drawerOpen && matchMedia('(min-width: 990px)').matches) setDrawer(false); });
+/* ---------- navigation, drawer, footer (shared with the policy page) ---------- */
+const { setDrawer } = initShell({ onDrawerOpen: () => { closeSearch(); closeCart(); } });
 
 /* ---------- local search (mock data) ---------- */
 const searchModal = $('#search-modal');
@@ -129,16 +51,23 @@ function renderResults() {
   const prods = PRODUCTS.filter(p => match(p.name)).slice(0, 4);
   const bold = t => { const i = t.toLowerCase().indexOf(q); return i < 0 ? esc(t) : `${esc(t.slice(0, i))}<b>${esc(t.slice(i, i + q.length))}</b>${esc(t.slice(i + q.length))}`; };
   results.innerHTML = `<div class="predictive__cols">
-      ${sugg.length ? `<div class="predictive__col"><h3 class="predictive__title">Suggestions</h3><ul>${sugg.map(s => `<li><a href="${page('search')}&q=${encodeURIComponent(s)}">${bold(s)}</a></li>`).join('')}</ul></div>` : ''}
-      ${prods.length ? `<div class="predictive__col"><h3 class="predictive__title">Products</h3><ul>${prods.map(p => `<li><a class="predictive__product" href="${page(p.id)}"><img class="predictive__thumb" src="${p.img}" alt="" width="50" height="50"><span>${esc(p.name)}</span></a></li>`).join('')}</ul></div>` : ''}
+      ${sugg.length ? `<div class="predictive__col"><h3 class="predictive__title">Suggestions</h3><ul>${sugg.map(s => `<li><a href="#collections">${bold(s)}</a></li>`).join('')}</ul></div>` : ''}
+      ${prods.length ? `<div class="predictive__col"><h3 class="predictive__title">Products</h3><ul>${prods.map(p => `<li><a class="predictive__product" href="#featured"><img class="predictive__thumb" src="${p.img}" alt="" width="50" height="50"><span>${esc(p.name)}</span></a></li>`).join('')}</ul></div>` : ''}
       ${!sugg.length && !prods.length ? '<p class="predictive__empty">No results found</p>' : ''}
     </div>
-    <a class="predictive__all" href="${page('search')}&q=${encodeURIComponent(q)}"><span>Search for “${esc(q)}”</span>${ARROW}</a>`;
+    <a class="predictive__all" href="#featured"><span>Browse trending jewellery</span>${ARROW}</a>`;
   results.hidden = false;
 }
 searchInput.addEventListener('input', renderResults);
 reset.addEventListener('click', () => setTimeout(() => { renderResults(); searchInput.focus(); }));
-$('#search-form').addEventListener('submit', e => { if (!searchInput.value.trim()) e.preventDefault(); });
+// links in the results scroll to a homepage section; the form itself never leaves the page
+results.addEventListener('click', e => { if (e.target.closest('a')) closeSearch(); });
+$('#search-form').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!searchInput.value.trim()) return;
+  closeSearch();
+  $('#featured').scrollIntoView();
+});
 
 /* ---------- cart (localStorage, frontend only) ---------- */
 const KEY = 'vincy-cart';
@@ -157,7 +86,7 @@ function renderCart() {
   const body = $('#cart-body');
   const foot = $('#cart-foot');
   if (!cart.length) {
-    body.innerHTML = '<p class="cart-drawer__empty">Your cart is empty</p><a class="btn" href="index.html">Continue shopping</a>';
+    body.innerHTML = '<p class="cart-drawer__empty">Your cart is empty</p><a class="btn" href="#featured" data-close-cart>Continue shopping</a>';
     foot.hidden = true; return;
   }
   let total = 0, unpriced = false;
@@ -165,7 +94,7 @@ function renderCart() {
     const p = PRODUCTS.find(x => x.id === l.id); if (!p) return '';
     if (p.price == null) unpriced = true; else total += p.price * l.qty;
     return `<li class="cart-line" data-id="${p.id}"><img class="cart-line__img" src="${p.img}" alt="" width="80" height="80">
-      <div class="cart-line__info"><a href="${page(p.id)}" class="cart-line__name">${esc(p.name)}</a><span class="cart-line__price">${money(p.price)}</span>
+      <div class="cart-line__info"><span class="cart-line__name">${esc(p.name)}</span><span class="cart-line__price">${money(p.price)}</span>
       <div class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity">−</button><span aria-live="polite">${l.qty}</span><button type="button" data-qty="1" aria-label="Increase quantity">+</button></div></div>
       <button type="button" class="cart-line__remove" data-remove aria-label="Remove ${esc(p.name)}">Remove</button></li>`;
   }).join('')}</ul>`;
@@ -181,6 +110,7 @@ function change(id, delta) {
   renderCart();
 }
 $('#cart-body').addEventListener('click', e => {
+  if (e.target.closest('[data-close-cart]')) { closeCart(); return; }
   const line = e.target.closest('.cart-line'); if (!line) return;
   if (e.target.closest('[data-remove]')) { write(getCart().filter(l => l.id !== line.dataset.id)); renderCart(); return; }
   const q = e.target.closest('[data-qty]'); if (q) change(line.dataset.id, +q.dataset.qty);
@@ -232,7 +162,7 @@ feat.innerHTML = PRODUCTS.map((p, i) => `
         <button type="button" class="pcard__btn wish" data-wish="${p.id}" aria-pressed="${wished.has(p.id)}" aria-label="Save ${esc(p.name)} to wishlist">${HEART}</button>
         ${p.soldOut ? '' : `<button type="button" class="pcard__btn pcard__btn--add" data-add="${p.id}" aria-label="Add ${esc(p.name)} to cart">${BAG}</button>`}
       </div></div>
-    <div class="pcard__info"><h3 class="pcard__title"><a href="${page(p.id)}">${esc(p.name)}</a></h3>
+    <div class="pcard__info"><h3 class="pcard__title">${esc(p.name)}</h3>
       <div class="price${p.price == null ? ' price--request' : ''}"><span class="visually-hidden">Regular price </span>${money(p.price)}</div></div>
   </div></li>`).join('');
 feat.addEventListener('click', e => {
@@ -291,14 +221,6 @@ $$('.slider').forEach(initSlider);
   });
   input.addEventListener('input', () => { if (input.getAttribute('aria-invalid') === 'true') { msg.hidden = true; input.setAttribute('aria-invalid', 'false'); } });
 })();
-
-/* ---------- footer ---------- */
-$('#footer-blocks').innerHTML = `
-  <div class="footer-block"><h2 class="footer-block__heading footer-block__heading--brand">${esc(FOOTER.brand.heading)}</h2><div class="footer-block__text"><p>${esc(FOOTER.brand.text)}</p></div></div>
-  <div class="footer-block"><h2 class="footer-block__heading">Categories</h2><ul class="footer-links">${FOOTER.categories.map(l => `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('')}</ul></div>
-  <div class="footer-block"><h2 class="footer-block__heading">Policies</h2><ul class="footer-links">${FOOTER.policies.map(l => `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('')}</ul></div>
-  <div class="footer-block"><h2 class="footer-block__heading">Customer Support</h2><div class="footer-block__text">${FOOTER.support.map(s => `<p><b>${esc(s.k)}:</b> ${s.href ? `<a class="footer-contact" href="${s.href}">${esc(s.v)}</a>` : esc(s.v)}</p>`).join('')}</div></div>`;
-$('#footer-policies').insertAdjacentHTML('beforeend', FOOTER.bottomPolicies.map(l => `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join(''));
 
 /* ---------- placeholder labels ---------- */
 $$('.ph[data-label]').forEach(el => { if (el.dataset.label) el.setAttribute('aria-label', el.dataset.label); });

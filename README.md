@@ -15,17 +15,18 @@ You can also open `index.html` through any static file server. (Opening the file
 
 Announcement bar, sticky header with category navigation (dropdowns, a "More" menu when categories don't fit, mobile and tablet drawer), search with suggestions, cart drawer, hero banner, trust banner, customer reviews banner, collections, welcome text, scrolling highlights strip, trending products (wishlist and add to cart), newsletter signup and footer.
 
-Everything is frontend-only: the cart, wishlist and newsletter email are kept in the browser (localStorage). There is no checkout, account or payment, and links to other pages go to a simple placeholder page.
+Everything is frontend-only: the cart, wishlist and newsletter email are kept in the browser (localStorage). There is no checkout, account or payment, and it is a single-page site: the navbar scrolls to sections of the homepage, and the Privacy Policy is the only separate page.
 
 ## Project layout
 
 ```
-index.html          the homepage
+index.html          the homepage (single page; the navbar scrolls to its sections)
+privacy-policy.html the only separate page
 tokens.css          design tokens: colours, fonts, type scale, spacing, breakpoints
 css/site.css        styles (uses tokens.css)
-js/main.js          behaviour: nav, drawer, search, cart, sliders, wishlist, newsletter
+js/main.js          behaviour: search, cart, sliders, wishlist, newsletter
+js/shell.js         navbar, mobile drawer and footer (shared with the policy page)
 js/data.js          the content you will edit most: categories, products, contact details
-pages/placeholder.html   stand-in page for links that don't exist yet
 assets/             images (banners, collections, products)
 tools/              serve.mjs (dev server), behaviour.mjs (tests), image optimisers
 ```
@@ -69,8 +70,7 @@ This runs about 75 browser checks (Playwright): sticky header, dropdowns, search
 ## Still to supply
 
 - Product prices
-- Email address and legal name for the footer
-- Policy pages (Privacy, Refund, Shipping, Terms, Contact)
+- Official contact email and legal name (the Privacy Policy currently gives the phone number and address instead of an email)
 
 ## Deploy (Vercel)
 

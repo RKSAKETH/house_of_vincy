@@ -32,20 +32,22 @@ check('header sticky at scrollY 1500 (top = 0)', Math.abs(top) < 0.5, `top=${top
 await p.screenshot({ path: OUT + 'behaviour-sticky-desktop.png', clip: { x: 0, y: 0, width: 1440, height: 260 } });
 await p.evaluate(() => scrollTo(0, 0));
 
-// dropdown opens on click, closes on outside click / Esc, only one open
-await p.click('.nav-list > li:nth-child(1) summary');
-let open = await p.$$eval('.nav-details[open]', n => n.length);
-check('Earrings dropdown opens on click', open === 1);
-const links = await p.$$eval('.nav-list > li:nth-child(1) .nav-sublink', n => n.length);
-check('Earrings dropdown has 4 links (oxidised, anti tarnish, studs, twisted)', links === 4, `${links}`);
-await p.screenshot({ path: OUT + 'behaviour-dropdown-desktop.png', clip: { x: 0, y: 0, width: 1440, height: 600 } });
-await p.click('.nav-list > li:nth-child(3) summary'); await p.waitForTimeout(150);
-open = await p.$$eval('.nav-details[open]', n => n.length);
-check('opening another dropdown closes the first', open === 1);
-await p.keyboard.press('Escape');
-check('Esc closes dropdown', (await p.$$eval('.nav-details[open]', n => n.length)) === 0);
-await p.click('.nav-list > li:nth-child(5) summary'); await p.mouse.click(700, 20);
-check('outside click closes dropdown', (await p.$$eval('.nav-details[open]', n => n.length)) === 0);
+
+// navbar: single-page anchors, Privacy Policy is the only page
+const navLinks = await p.$$eval('.nav-list a', n => n.map(a => [a.textContent.trim(), a.getAttribute('href')]));
+check('navbar: Home, Collections, Trending Jewellery, Why Trust House of Vincy, Contact Us, Privacy Policy', navLinks.map(x => x[0]).join('|') === 'Home|Collections|Trending Jewellery|Why Trust House of Vincy|Contact Us|Privacy Policy', navLinks.map(x => x[0]).join('|'));
+check('every nav link is an anchor except Privacy Policy', navLinks.every(([l, h]) => (l === 'Privacy Policy' ? h === 'privacy-policy.html' : h.startsWith('#'))), JSON.stringify(navLinks));
+check('nav fits on one row at 1440', await p.$eval('.nav-list', n => n.scrollWidth <= n.parentElement.clientWidth && n.getBoundingClientRect().height < 80));
+await p.screenshot({ path: OUT + 'behaviour-nav-desktop.png', clip: { x: 0, y: 0, width: 1440, height: 260 } });
+for (const [label, id] of [['Collections', 'collections'], ['Trending Jewellery', 'featured'], ['Why Trust House of Vincy', 'why-trust'], ['Contact Us', 'contact']]) {
+  await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(1200);
+  await p.click(`.nav-list >> text="${label}"`); await p.waitForTimeout(1800);
+  const r = await p.evaluate(id => ({ top: document.getElementById(id).getBoundingClientRect().top, hdr: document.querySelector('#site-header').getBoundingClientRect().bottom, y: scrollY, max: document.documentElement.scrollHeight - innerHeight }), id);
+  check(`nav "${label}" smooth-scrolls to #${id} just below the sticky header`, r.y > 0 && (Math.abs(r.top - r.hdr) <= 2 || r.y >= r.max - 2), JSON.stringify(r));
+}
+await p.click('.nav-list >> text="Home"'); await p.waitForTimeout(3000);
+check('nav "Home" scrolls back to the top', (await p.evaluate(() => scrollY)) < 2);
+check('URL stays on the homepage after anchor navigation', new URL(p.url()).pathname === '/');
 
 // search
 await p.click('#search-toggle'); await p.waitForTimeout(200);
@@ -94,11 +96,15 @@ p.on('pageerror', e => errs4.push(e.message));
 await p.goto(URL_, { waitUntil: 'networkidle' });
 await p.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
 const order = await p.$$eval('main > section', n => n.map(s => s.id));
-check('sections in page order', order.join(',') === 'hero-1,trust,reviews,collections,rich-text,marquee,featured,newsletter', order.join(','));
+check('sections in page order', order.join(',') === 'hero-1,trust,reviews,collections,rich-text,marquee,featured,why-trust,newsletter', order.join(','));
 check('footer shows client phone + address', (await p.textContent('#site-footer')).includes('6385202221') && (await p.textContent('#site-footer')).includes('251 Velachery Main Road'));
 check('footer phone is a tel: link', (await p.getAttribute('.footer-contact', 'href')) === 'tel:+916385202221');
 check('no PLACEHOLDER text left in copy/footer/products', !(await p.textContent('#rich-text')).includes('PLACEHOLDER') && !(await p.textContent('#site-footer')).includes('PLACEHOLDER') && !(await p.textContent('.announce-track')).includes('PLACEHOLDER') && !(await p.textContent('#featured')).includes('PLACEHOLDER'));
-check('nav has client categories (Earrings first, More holds Beauty Products)', (await p.textContent('#nav-list')).includes('Earrings') && (await p.textContent('#nav-list')).includes('Beauty Products'));
+const badLinks = await p.$$eval('a[href]', n => n.map(a => a.getAttribute('href')).filter(h => !(h.startsWith('#') || h.startsWith('tel:') || h === 'privacy-policy.html' || h === 'index.html')));
+check('no link on the homepage points at a placeholder or unknown page', badLinks.length === 0, badLinks.join(', '));
+const missing = await p.$$eval('a[href^="#"]', n => n.map(a => a.getAttribute('href').slice(1)).filter(id => id && !document.getElementById(id)));
+check('every in-page anchor has a matching element', missing.length === 0, missing.join(', '));
+check('Why Trust section has the supplied heading + 6 trust cards', (await p.textContent('#why-trust h2')) === 'Why Trust House of Vincy?' && (await p.$$eval('#why-trust .about__card', n => n.length)) === 6);
 check('logo image shows in header and is loaded', (await p.$eval('.header__logo-img', n => n.complete && n.naturalWidth > 0 && n.getBoundingClientRect().height > 100)));
 check('header is still 154px tall with the logo', Math.round(await p.$eval('#site-header', n => n.getBoundingClientRect().height)) === 154);
 check('hero banner (desktop): image visible, call hotspot is tel:, shop hotspot present', (await p.isVisible('#hero-1 .slide-art--desktop .slide-img')) && (await p.getAttribute('#hero-1 .slide-art--desktop .hotspot >> nth=0', 'href')) === 'tel:+916385202221' && (await p.isVisible('#hero-1 .slide-art--desktop .hotspot >> nth=1')));
@@ -187,12 +193,12 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mob
     await p.click('#menu-toggle'); await p.waitForTimeout(300);
     check(`drawer opens @${name}`, await p.isVisible('#menu-drawer'));
     await p.screenshot({ path: `${OUT}behaviour-drawer-${name}.png` });
-    await p.click('.menu-drawer__item--parent >> nth=0'); await p.waitForTimeout(400);
-    const subLinks = await p.$$eval('.menu-drawer__sub:not([hidden]) a', n => n.length);
-    check(`drawer submenu opens with 4 Earrings links @${name}`, subLinks === 4, `${subLinks}`);
-    await p.screenshot({ path: `${OUT}behaviour-drawer-sub-${name}.png` });
-    await p.click('.menu-drawer__sub:not([hidden]) [data-back]'); await p.waitForTimeout(100);
-    check(`drawer back returns to top level @${name}`, (await p.$$eval('.menu-drawer__sub:not([hidden])', n => n.length)) === 0);
+    const dl = await p.$$eval('#drawer-list a', n => n.map(a => a.textContent.trim()));
+    check(`drawer lists the 6 single-page items @${name}`, dl.length === 6 && dl[0] === 'Home' && dl[5] === 'Privacy Policy', dl.join('|'));
+    await p.click('#drawer-list >> text="Trending Jewellery"'); await p.waitForTimeout(1800);
+    check(`drawer link closes the drawer and scrolls to #featured @${name}`, !(await p.isVisible('#menu-drawer')) && (await p.evaluate(() => document.getElementById('featured').getBoundingClientRect().top < innerHeight / 2)));
+    await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(500);
+    await p.click('#menu-toggle'); await p.waitForTimeout(200);
     await p.click('#menu-toggle');
     check(`drawer closes @${name}`, !(await p.isVisible('#menu-drawer')));
     await p.click('#search-toggle'); await p.waitForTimeout(200);
@@ -201,6 +207,26 @@ for (const [name, w, h] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mob
     const sOv = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     check(`no overflow with search open @${name}`, sOv <= 0, `${sOv}`);
   }
+  await ctx.close();
+}
+// ---- privacy policy page
+for (const [name, w, h] of [['desktop', 1440, 900], ['mobile', 390, 844]]) {
+  ctx = await browser.newContext({ viewport: { width: w, height: h }, isMobile: name === 'mobile', hasTouch: name === 'mobile' });
+  p = await ctx.newPage();
+  const perr = [];
+  p.on('pageerror', e => perr.push(e.message));
+  await p.goto(URL_ + 'privacy-policy.html', { waitUntil: 'networkidle' });
+  const m = await p.evaluate(() => { const r = e => document.querySelector(e).getBoundingClientRect(); const cs = e => getComputedStyle(document.querySelector(e)); return { w: r('.policy').width, h1: cs('.policy__title').fontSize, h3: cs('.policy h3').fontSize, p: cs('.policy p').fontSize, h3count: document.querySelectorAll('.policy h3').length, ov: document.documentElement.scrollWidth - document.documentElement.clientWidth }; });
+  check(`privacy page @${name}: container + type sizes match reference`, name === 'desktop' ? Math.abs(m.w - 749) < 1 && m.h1 === '44px' && m.h3 === '19.8px' && m.p === '19.2px' : Math.abs(m.w - 390) < 1 && m.h1 === '33px' && m.h3 === '18.7px' && m.p === '18px', JSON.stringify(m));
+  check(`privacy page @${name}: 7 sections, no overflow, no errors`, m.h3count === 7 && m.ov <= 0 && perr.length === 0, JSON.stringify(m) + perr.join());
+  if (name === 'desktop') {
+    const hrefs = await p.$$eval('#nav-list a', n => n.map(a => a.getAttribute('href')));
+    check('privacy page nav links back to homepage sections', hrefs.slice(0, 5).every(h => h.startsWith('index.html#')) && hrefs[5] === 'privacy-policy.html', hrefs.join());
+    check('privacy page: current nav item marked', (await p.$$eval('#nav-list [aria-current=page]', n => n.length)) === 1);
+    await p.click('#nav-list >> text="Collections"'); await p.waitForURL(/index\.html#collections/); await p.waitForTimeout(1500);
+    check('nav from policy page lands on homepage #collections', new URL(p.url()).hash === '#collections' && (await p.evaluate(() => document.getElementById('collections').getBoundingClientRect().top < 400)));
+  }
+  await p.screenshot({ path: `${OUT}behaviour-privacy-${name}.png`, fullPage: name === 'mobile' });
   await ctx.close();
 }
 await browser.close();

@@ -1,10 +1,21 @@
 // Local data (frontend only). Categories, address and phone come from the client brief.
 // Product names are descriptive labels for the supplied photos; PRICES HAVE NOT BEEN SUPPLIED yet:
 // set `price` (a number, in rupees) on each product below and the cards, search and cart pick it up.
-const page = slug => `pages/placeholder.html?slug=${encodeURIComponent(slug)}`;
-const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
+// Single-page site: every link is an anchor on the homepage, except the Privacy Policy page.
+// `target` is the section id on index.html (or the policy page file).
 export const NAV = [
+  { label: 'Home', target: 'top' },
+  { label: 'Collections', target: 'collections' },
+  { label: 'Trending Jewellery', target: 'featured' },
+  { label: 'Why Trust House of Vincy', target: 'why-trust' },
+  { label: 'Contact Us', target: 'contact' },
+  { label: 'Privacy Policy', page: 'privacy-policy.html' },
+];
+// Where an item points from the homepage ('') or from the policy page ('index.html').
+export const hrefFor = (n, base = '') => (n.page ? n.page : `${base}#${n.target}`);
+
+// Product categories (used by search suggestions and the footer; they all lead to the Collections section).
+export const CATEGORIES = [
   { label: 'Earrings', children: ['Oxidised Earrings', 'Anti Tarnish Earrings', 'Studs', 'Twisted Earrings'] },
   { label: 'Rings' },
   { label: 'Chains', children: ['Anti Tarnish Chains'] },
@@ -15,15 +26,7 @@ export const NAV = [
   { label: 'Bangles' },
   { label: 'Hair Accessories', children: ['Hair Clips', 'Stone Clips', 'Hair Bands'] },
   { label: 'Beauty Products', children: ['Nail Polish', 'Nail Polish Remover', 'Wipes', 'Sunscreen', 'Nail Art', 'Eyeliner', 'Mascara', 'Lipstick'] },
-].map(n => {
-  const slug = slugify(n.label);
-  return {
-    ...n,
-    slug,
-    href: page(slug),
-    children: n.children && n.children.map(c => ({ label: c, href: page(`${slug}-${slugify(c)}`) })),
-  };
-});
+];
 
 export const CONTACT = {
   phone: '6385202221',
@@ -36,9 +39,11 @@ export const FOOTER = {
     heading: 'HOUSE OF VINCY',
     text: 'House of Vincy brings you everyday jewellery, hair accessories and beauty essentials in one place. Explore earrings, necklaces, bracelets, bangles and more, chosen to be easy to wear and easy to love.',
   },
-  categories: NAV.map(n => ({ label: n.label, href: n.href })),
-  policies: ['Privacy Policy', 'Refund Policy', 'Shipping Policy', 'Terms of Service', 'Contact Information'].map(l => ({ label: l, href: page(slugify(l)) })),
-  bottomPolicies: ['Refund policy', 'Privacy policy', 'Terms of service', 'Shipping policy', 'Contact information'].map(l => ({ label: l, href: page(slugify(l)) })),
+  categories: CATEGORIES.map(n => ({ label: n.label, target: 'collections' })),
+  links: [
+    { label: 'Privacy Policy', page: 'privacy-policy.html' },
+    { label: 'Contact Us', target: 'contact' },
+  ],
   support: [
     { k: 'Mobile', v: CONTACT.phone, href: CONTACT.phoneHref },
     { k: 'Address', v: CONTACT.address },
@@ -58,7 +63,6 @@ export const PRODUCTS = [
 ];
 
 // Search suggestions: every category and sub-category (product names are searched separately).
-export const SEARCH_TERMS = [...new Set(NAV.flatMap(n => [n.label, ...(n.children || []).map(c => c.label)]).map(t => t.toLowerCase()))];
+export const SEARCH_TERMS = [...new Set(CATEGORIES.flatMap(n => [n.label, ...(n.children || [])]).map(t => t.toLowerCase()))];
 
 export const money = n => (n == null ? 'Price on request' : `Rs. ${n.toFixed(2)}`);
-export { page };

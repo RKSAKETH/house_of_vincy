@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- SECTION: announcement-bar -->
@@ -56,8 +56,7 @@
       <!-- search modal (covers the header row) -->
       <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" hidden>
         <div class="search-modal__content">
-          <form class="search-form" id="search-form" role="search" action="pages/placeholder.html">
-            <input type="hidden" name="slug" value="search">
+          <form class="search-form" id="search-form" role="search">
             <div class="search-field">
               <label class="search-field__label" for="search-input">Search</label>
               <input class="search-field__input" id="search-input" type="search" name="q" autocomplete="off" placeholder=" " aria-controls="search-results">
@@ -83,12 +82,12 @@
       <div class="slide-art slide-art--desktop">
         <img class="slide-img" src="assets/hero-banner-desktop.jpg" width="1672" height="940" alt="House of Vincy. Everyday Jewellery, Beauty and More. Earrings, necklaces, bracelets, hair accessories, beauty products. Need help choosing? Call us: 6385202221. Shop now." fetchpriority="high">
         <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:4.9%;top:59%;width:24.4%;height:11.7%"></a>
-        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:31.9%;top:61.2%;width:18.2%;height:7.4%"></a>
+        <a class="hotspot" href="#collections" aria-label="Shop now" style="left:31.9%;top:61.2%;width:18.2%;height:7.4%"></a>
       </div>
       <div class="slide-art slide-art--mobile">
         <img class="slide-img" src="assets/hero-banner-mobile.jpg" width="820" height="1918" alt="House of Vincy. Everyday Jewellery, Beauty and More. Earrings, necklaces, bracelets, hair accessories, beauty products. Need help choosing? Call us: 6385202221. Shop now." fetchpriority="high">
         <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:14.8%;top:24.6%;width:71.1%;height:5.9%"></a>
-        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:14.8%;top:31.6%;width:71.1%;height:4.7%"></a>
+        <a class="hotspot" href="#collections" aria-label="Shop now" style="left:14.8%;top:31.6%;width:71.1%;height:4.7%"></a>
       </div>
     </section>
     <!-- SECTION: trust -->
@@ -96,12 +95,12 @@
       <div class="slide-art slide-art--desktop">
         <img class="slide-img" src="assets/trust-banner-desktop.jpg" width="1536" height="1024" alt="Everyday Jewellery, Beauty and More. Everything you love, in one place. Earrings, necklaces, bracelets and bangles, rings and anklets, hair accessories, beauty products. Need help choosing? Call us: 6385202221." loading="lazy">
         <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:5%;top:80.4%;width:28.2%;height:11.2%"></a>
-        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:35.2%;top:82.5%;width:18.8%;height:7%"></a>
+        <a class="hotspot" href="#collections" aria-label="Shop now" style="left:35.2%;top:82.5%;width:18.8%;height:7%"></a>
       </div>
       <div class="slide-art slide-art--mobile">
         <img class="slide-img" src="assets/trust-banner-mobile.jpg" width="803" height="1958" alt="Everyday Jewellery, Beauty and More. Everything you love, in one place. Earrings, necklaces, bracelets and bangles, rings and anklets, hair accessories, beauty products. Need help choosing? Call us: 6385202221." loading="lazy">
         <a class="hotspot" href="tel:+916385202221" aria-label="Call us on 6385202221" style="left:9%;top:85.2%;width:82%;height:6.7%"></a>
-        <a class="hotspot" href="pages/placeholder.html?slug=shop-now" aria-label="Shop now" style="left:9%;top:92.8%;width:82%;height:4.5%"></a>
+        <a class="hotspot" href="#collections" aria-label="Shop now" style="left:9%;top:92.8%;width:82%;height:4.5%"></a>
       </div>
     </section>
     <!-- SECTION: reviews -->
@@ -118,23 +117,23 @@
       <div class="coll__head page-width"><h2 class="h2">Collections</h2></div>
       <div class="slider-wrap">
         <ul class="slider coll__list" id="coll-slider">
-          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=necklaces">
+          <li class="slider__item coll__item"><a class="coll-card" href="#featured">
             <div class="coll-card__media"><img src="assets/collection-necklaces.jpg" width="900" height="900" alt="Gold charm necklace on cream satin" loading="lazy"></div>
             <div class="coll-card__label"><h3 class="coll-card__title">Necklaces</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
           </a></li>
-          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=bracelets">
+          <li class="slider__item coll__item"><a class="coll-card" href="#featured">
             <div class="coll-card__media"><img src="assets/collection-bracelets.jpg" width="900" height="900" alt="Gold crystal-set bangle in an open cream jewellery box" loading="lazy"></div>
             <div class="coll-card__label"><h3 class="coll-card__title">Bracelets</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
           </a></li>
-          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=rings">
+          <li class="slider__item coll__item"><a class="coll-card" href="#featured">
             <div class="coll-card__media"><img src="assets/collection-rings.jpg" width="900" height="900" alt="Gold open-band ring with a sculpted knot detail" loading="lazy"></div>
             <div class="coll-card__label"><h3 class="coll-card__title">Rings</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
           </a></li>
-          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=statement-collection">
+          <li class="slider__item coll__item"><a class="coll-card" href="#featured">
             <div class="coll-card__media"><img src="assets/collection-statement-collection.jpg" width="900" height="900" alt="Woman wearing a large sculptural gold petal earring" loading="lazy"></div>
             <div class="coll-card__label"><h3 class="coll-card__title">Statement Collection</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
           </a></li>
-          <li class="slider__item coll__item"><a class="coll-card" href="pages/placeholder.html?slug=earrings">
+          <li class="slider__item coll__item"><a class="coll-card" href="#featured">
             <div class="coll-card__media"><img src="assets/collection-earrings.jpg" width="900" height="900" alt="Gold huggie earrings on silk" loading="lazy"></div>
             <div class="coll-card__label"><h3 class="coll-card__title">Earrings</h3><svg class="icon icon-arrow" viewBox="0 0 14 10" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg></div>
           </a></li>
@@ -160,7 +159,7 @@
       </div>
     </section>
     <!-- SECTION: marquee -->
-    <section id="marquee" class="marquee" aria-label="Highlights (placeholder words)">
+    <section id="marquee" class="marquee" aria-label="Highlights">
       <div class="marquee-container"><div class="marquee-content"><div class="marquee-wrapper"><p class="marquee-text">Tarnish Free</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Waterproof</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Lightweight</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Tarnish Free</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Waterproof</p><span class="marquee-divider" aria-hidden="true">+</span></div><div class="marquee-wrapper"><p class="marquee-text">Lightweight</p><span class="marquee-divider" aria-hidden="true">+</span></div></div></div>
     </section>
     <!-- SECTION: featured -->
@@ -174,7 +173,62 @@
           <button type="button" class="slider-button" data-dir="1" aria-label="Next products"><svg class="icon icon-caret" viewBox="0 0 10 6"><path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"/></svg></button>
         </div>
       </div>
-      <div class="feat__all"><a class="link underlined-link" href="pages/placeholder.html?slug=best-sellers" aria-label="View all products in the Best Sellers collection">View all</a></div>
+      <div class="feat__all"><a class="link underlined-link" href="#collections" aria-label="Browse all collections">View all</a></div>
+    </section>
+    <!-- SECTION: why-trust -->
+    <section id="why-trust" class="about">
+      <div class="page-width">
+        <h2 class="h2 about__title">Why Trust House of Vincy?</h2>
+        <div class="about__col">
+          <h3 class="about__h">About House of Vincy</h3>
+          <p>Welcome to House of Vincy, your trusted destination for premium imitation jewellery.</p>
+          <p>What began as a small dream has grown into a brand dedicated to bringing beautiful, fashionable jewellery to customers who value style, quality, and affordability. Our goal has always been simple—to offer carefully selected jewellery designs at competitive prices while building lasting relationships with our customers.</p>
+
+          <h3 class="about__h">Our Journey</h3>
+          <p>House of Vincy was founded with a passion for jewellery, a love for timeless elegance, and a vision to make beautiful accessories accessible to everyone. With a commitment to quality, attention to detail, and an understanding of evolving fashion trends, we continue to bring together designs that complement every style and occasion.</p>
+          <p>As we grow, our focus remains on expanding our collections, improving the shopping experience, and offering jewellery that combines beauty, quality, and value.</p>
+          <p>Our values remain the same—honesty, quality, transparency, and customer-first service.</p>
+        </div>
+
+        <h3 class="about__h about__h--center">Why Customers Trust House of Vincy</h3>
+        <ul class="about__grid">
+          <li class="about__card"><h4 class="about__card-title">Premium Quality</h4><p>Carefully selected imitation jewellery with excellent craftsmanship and finishing.</p></li>
+          <li class="about__card"><h4 class="about__card-title">Latest Collections</h4><p>Discover fashionable designs and new styles that keep you up to date with the latest trends.</p></li>
+          <li class="about__card"><h4 class="about__card-title">Affordable Pricing</h4><p>Enjoy beautiful jewellery at competitive prices without compromising on style.</p></li>
+          <li class="about__card"><h4 class="about__card-title">Wide Product Range</h4><p>Explore earrings, necklaces, rings, bracelets, bangles, pendants, anklets, handchains, and much more—all in one place.</p></li>
+          <li class="about__card"><h4 class="about__card-title">Reliable Service</h4><p>We strive to provide secure packaging, timely dispatch, and responsive customer support.</p></li>
+          <li class="about__card"><h4 class="about__card-title">Customer Satisfaction</h4><p>We believe in building lasting relationships by offering products and services our customers can trust.</p></li>
+        </ul>
+
+        <div class="about__col">
+          <h3 class="about__h">Who We Serve</h3>
+          <p>House of Vincy welcomes customers looking for stylish and affordable jewellery, including:</p>
+          <ul class="about__list">
+            <li>Individual Jewellery Lovers</li><li>Fashion Enthusiasts</li><li>Gift Shoppers</li><li>Boutique Owners</li><li>Jewellery Resellers</li><li>Online and Social Media Sellers</li><li>Fashion Entrepreneurs</li>
+          </ul>
+
+          <h3 class="about__h">Shopping with House of Vincy</h3>
+          <p>Our goal is to make discovering and purchasing your favourite jewellery simple and convenient.</p>
+          <h4 class="about__sub">Order Through Our Website</h4>
+          <ol class="about__list about__list--steps">
+            <li>Browse our latest jewellery collections.</li>
+            <li>Explore the available designs and product details.</li>
+            <li>Add your preferred products to the cart.</li>
+            <li>Review your order and provide the required shipping information.</li>
+            <li>Complete your payment securely through the available payment options.</li>
+            <li>Our team will carefully prepare and dispatch your order.</li>
+            <li>Stay updated on your order until it reaches you.</li>
+          </ol>
+          <h4 class="about__sub">Personalised Shopping Assistance</h4>
+          <p>Need help choosing the perfect piece? Our team can assist you with product selection, design details, pricing, and availability. Contact us to explore the available options and receive personalised assistance with your purchase.</p>
+
+          <h3 class="about__h">Our Commitment</h3>
+          <p>Every product we offer reflects our commitment to style, value, and customer satisfaction. We understand that jewellery is more than just an accessory—it is a way to express individuality, celebrate special moments, and complete your personal style.</p>
+          <p>That is why we continuously strive to bring you beautiful designs, dependable service, and an enjoyable shopping experience.</p>
+          <p>At House of Vincy, we believe that every piece of jewellery should make you feel special.</p>
+          <p>Thank you for choosing House of Vincy. We look forward to being a part of your style journey.</p>
+        </div>
+      </div>
     </section>
     <!-- SECTION: newsletter -->
     <section id="newsletter" class="news">
